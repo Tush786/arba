@@ -5,7 +5,7 @@ import { Button, Input, InputGroup, InputRightElement, Text, useToast } from '@c
 import { LoginUser, addUser } from '../redux/action';
 import { RESET_USER } from '../redux/actiontype';
 import { AiTwotoneEye, AiTwotoneEyeInvisible } from 'react-icons/ai';
-
+import Loginbanner from '../Images/capture.PNG'
 
 function Signup({onClose, onOpen }) {
     const Navigate=useNavigate();
@@ -19,10 +19,10 @@ function Signup({onClose, onOpen }) {
  
     const dispatch = useDispatch()
 
-    //   const statuscode = useSelector((state) => state.user.statuscode);
-  const statuscode="200"
-  //   const token = useSelector((state) => state.user.token);
-    const token="guririnrnrgnoiuy8"
+      const statuscode = useSelector((state) => state.user.statuscode);
+  // const statuscode="200"
+    const token = useSelector((state) => state.user.token);
+    // const token="guririnrnrgnoiuy8"
     console.log(token);
   const toast = useToast()
 
@@ -43,8 +43,8 @@ function Signup({onClose, onOpen }) {
   
     const HandleSubmit = async (e) => {
       e.preventDefault()
-      const { username, email, password } = user
-      if (username == "" || username.length < 3) {
+      const { userName,fullName, email, password,cpassword } = user
+      if (userName == "" || userName.length < 3) {
         return toast({
           title: 'Enter Full Name',
           status: 'error',
@@ -65,7 +65,7 @@ function Signup({onClose, onOpen }) {
       }
     
   
-      if (password === "" || password.length < 10) {
+      if (password === "" || password.length <6) {
         return toast({
           title: 'Enter valid password',
           status: 'error',
@@ -75,13 +75,30 @@ function Signup({onClose, onOpen }) {
   
         
       }
+
+      if (password !== cpassword ) {
+        return toast({
+          title: 'Wrong Password',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
   
-      dispatch(addUser(user))
+      }
+  
+      const obj={
+        userName,
+        fullName,
+        email,password
+      }
+      dispatch(addUser(obj))
   
       setUser({
-        username: "",
+        userName: "",
+        fullName: "",
         email: "",
-        password: ""
+        password: "",
+        cpassword: ""
       })
     }
   
@@ -121,7 +138,7 @@ function Signup({onClose, onOpen }) {
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
     <div className="md:w-1/3 max-w-sm">
       <img
-        src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+        src={Loginbanner}
         alt="Sample image" />
     </div>
     <div className="md:w-1/3 max-w-sm">

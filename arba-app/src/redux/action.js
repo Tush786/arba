@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   EDIT_USER,
+  GET_DATA,
   GET_USER,
   LOGIN_USER,
   POST_USER,
@@ -70,7 +71,7 @@ export const LoginUser = (user) => async (dispatch) => {
 export const setUser = (_id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `https://taskbackend-u0a1.onrender.com/user/${_id}`
+      `http://localhost:7777/user/${_id}`
     );
     console.log(res);
     dispatch({
@@ -88,7 +89,7 @@ export const setUser = (_id) => async (dispatch) => {
 export const editUser = (user) => async (dispatch) => {
   try {
     await axios.patch(
-      `https://taskbackend-u0a1.onrender.com/user/editUser/${user._id}`,
+      `hhttp://localhost:7777/user/editUser/${user._id}`,
       {
         ...user,
       }
@@ -96,6 +97,21 @@ export const editUser = (user) => async (dispatch) => {
     dispatch({
       type: EDIT_USER,
       payload: user,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+export const getproducts = () => async (dispatch) => {
+  try {
+    const products = await axios.get(
+      `http://localhost:7777/product/get`
+    );
+    dispatch({
+      type: GET_DATA,
+      payload: products.data,
     });
   } catch (err) {
     console.log(err);

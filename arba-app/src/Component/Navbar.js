@@ -61,6 +61,8 @@ import {
   
     const token = useSelector((state) => state.user.token);
     console.log(token);
+
+    const Token =localStorage.getItem("Token");
   
     const handleLogout = () => {
       dispatch({ type: LOGOUT_USER })
@@ -73,8 +75,8 @@ import {
           duration: 3000
         })
       },3000)
-      document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      localStorage.setItem("Token","Logout")
+  // console.log("LoOOOut")
+      localStorage.setItem("Token","")
     }
   
     function handleRoute(){
@@ -85,6 +87,15 @@ import {
   
     function HandleHomeRoute(){
       Navigate("/");
+    }
+
+    function HandleProfile(){
+      if(Token){
+        Navigate("/profile");
+      }
+      else{
+        Navigate("/login");
+      }
     }
   
     return (
@@ -165,11 +176,12 @@ import {
                     Login/Signup
                   </MenuItem>
                   <MenuItem
+                onClick={HandleProfile}
                     _hover={{
                       bg: useColorModeValue("#D3D3D3", "rgba(0, 0, 0, 0.20)"),
                     }}
                   >
-                    {!username?"User Name":username}
+                    Profile
                   </MenuItem>
                   <MenuDivider />
                   <MenuItem

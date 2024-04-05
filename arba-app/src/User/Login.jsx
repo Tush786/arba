@@ -1,35 +1,39 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { LoginUser, addUser } from "../redux/action";
-import { Button, Input, InputGroup, InputRightElement, Text, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { RESET_USER } from "../redux/actiontype";
 import { AiTwotoneEye } from "react-icons/ai";
 import { AiTwotoneEyeInvisible } from "react-icons/ai";
+import Loginbanner from "../Images/capture.PNG";
 
 function Login() {
   const Navigate = useNavigate();
 
-  const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
-  
-
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
 
   const dispatch = useDispatch();
-//   const statuscode = useSelector((state) => state.user.statuscode);
-  const statuscode="200"
-//   const token = useSelector((state) => state.user.token);
-  const token="guririnrnrgnoiuy8"
+  const statuscode = useSelector((state) => state.user.statuscode);
+  // const statuscode="200"
+  const token = useSelector((state) => state.user.token);
+  // const token="guririnrnrgnoiuy8"
   console.log(token);
   const toast = useToast();
 
   const [user, setUser] = useState({
     email: "",
     password: "",
-    gauth: false,
   });
 
   const handleChange = (e) => {
@@ -67,15 +71,12 @@ function Login() {
     setUser({
       email: "",
       password: "",
-      gauth: false,
-    })
+    });
 
-    Navigate('/')
-  
+    Navigate("/");
   };
   console.log(user);
   const [userj, setUserj] = useState();
- 
 
   useEffect(() => {
     if (statuscode == "200" || statuscode == "201") {
@@ -103,49 +104,47 @@ function Login() {
     dispatch({ type: RESET_USER, payload: "" });
   }, [statuscode]);
 
+  const Token = localStorage.getItem("Token");
+  if (Token) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <section className="h-screen flex flex-col  md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
       <div className="md:w-1/3 max-w-sm">
-        <img
-          src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-          alt="Sample image"
-        />
+        <img src={Loginbanner} alt="Sample image" />
       </div>
       <div className="md:w-1/3 max-w-sm">
         <div className="flex justify-center py-4 items-center gap-6 ">
-           <Text className="text-center text-[24px] font-[600] ">ArBa App</Text>
+          <Text className="text-center text-[24px] font-[600] ">ArBa App</Text>
         </div>
-    
+
         <form onSubmit={handleSubmit} className="">
+          <InputGroup size="md" mb="4">
+            <Input
+              className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              onChange={(e) => handleChange(e)}
+            />
+            <InputRightElement width="4.5rem"></InputRightElement>
+          </InputGroup>
 
-
-<InputGroup size='md' mb='4'>
-      <Input
-        className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            onChange={(e) => handleChange(e)}
-      />
-      <InputRightElement width='4.5rem'>
-        
-      </InputRightElement>
-    </InputGroup>
-
-       <InputGroup size='md' display='flex' alignItems='center'>
-      <Input
-         className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
-         type={show ? "password" : "text"}
-            name="Password"
-            placeholder="password"
-            onChange={(e) => handleChange(e)}
-      />
-      <InputRightElement width='4.5rem' >
-        <Button h='1.75rem' size='sm' bg='white' onClick={handleClick}>
-          {show ? <AiTwotoneEyeInvisible/> : <AiTwotoneEye/>}
-        </Button>
-      </InputRightElement>
-    </InputGroup>
+          <InputGroup size="md" display="flex" alignItems="center">
+            <Input
+              className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
+              type={show ? "password" : "text"}
+              name="password"
+              placeholder="password"
+              onChange={(e) => handleChange(e)}
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" bg="white" onClick={handleClick}>
+                {show ? <AiTwotoneEyeInvisible /> : <AiTwotoneEye />}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
           <input
             className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded mt-4 bg-[#8898ee] text-white"
             type="submit"
