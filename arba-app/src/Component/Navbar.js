@@ -24,6 +24,7 @@ import {
   import { useDispatch, useSelector } from "react-redux";
   import { LOADING, LOGOUT_USER, NOT_LOADING } from "../redux/actiontype";
   // import { Link } from "react-router-dom";
+  import { BsCartFill } from "react-icons/bs";
   
   const Links = [
     // { path: "/createtask", title: "Create-Task", type: true },
@@ -107,7 +108,7 @@ import {
           borderWidth="1px"
           boxShadow="md"
          
-          className="md:mb-[0px] sticky top-0"
+          className="md:mb-[0px] sticky top-0 z-30"
         >
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
             <IconButton
@@ -122,9 +123,9 @@ import {
               alignItems={"center"}
               className="flex justify-center items-center"
             >
-              <Box className="cursor-pointer" onClick={HandleHomeRoute} fontSize="2xl" fontWeight="bold">
-                <Icon as={MdConnectWithoutContact} marginRight="0.5rem" />
-               ArBa App
+              <Box  className="bg-[rgb(0,171,197)] cursor-pointer text-[white] px-4 rounded-sm" onClick={HandleHomeRoute} fontSize="2xl" fontWeight="bold">
+                
+              LOGO
               </Box>
               <HStack
                 as={"nav"}
@@ -143,7 +144,8 @@ import {
                 ))}
               </HStack>
             </HStack>
-            <Flex alignItems={"center"}>
+            <Flex alignItems={"center"} className="flex  gap-2" >
+             <BsCartFill className="CART_ICON"/>
               <Menu>
                 <MenuButton
                 /*
