@@ -17,7 +17,7 @@ import {
 export const getUser = (id) => async (dispatch) => {
   try {
     const user = await axios.get(
-      `http://localhost:7777/user/${id}`
+      `https://arba-backend-2-8gqc.onrender.com/user/${id}`
     );
     dispatch({
       type: GET_USER,
@@ -30,7 +30,7 @@ export const getUser = (id) => async (dispatch) => {
 
 export const addUser = (user) => async (dispatch) => {
   try {
-    const res = await axios.post(`http://localhost:7777/user/signup`, {
+    const res = await axios.post(`https://arba-backend-2-8gqc.onrender.com/user/signup`, {
       ...user,
     });
     console.log(res.status);
@@ -51,7 +51,7 @@ export const addUser = (user) => async (dispatch) => {
 export const LoginUser = (user) => async (dispatch) => {
   console.log(user);
   try {
-    const res = await axios.post(`http://localhost:7777/user/login`, {
+    const res = await axios.post(`https://arba-backend-2-8gqc.onrender.com/user/login`, {
       ...user,
     });
     console.log(res.data);
@@ -77,7 +77,7 @@ export const LoginUser = (user) => async (dispatch) => {
 export const setUser = (_id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:7777/user/${_id}`
+      `https://arba-backend-2-8gqc.onrender.com/user/${_id}`
     );
     console.log(res);
     dispatch({
@@ -95,7 +95,7 @@ export const setUser = (_id) => async (dispatch) => {
 export const editUser = (user) => async (dispatch) => {
   try {
     await axios.patch(
-      `http://localhost:7777user/editUser/${user._id}`,
+      `https://arba-backend-2-8gqc.onrender.com/user/editUser/${user._id}`,
       {
         ...user,
       }
@@ -113,7 +113,7 @@ export const editUser = (user) => async (dispatch) => {
 export const getproducts = () => async (dispatch) => {
   try {
     const products = await axios.get(
-      `http://localhost:7777/product/get`
+      `https://arba-backend-2-8gqc.onrender.com/product/get`
     );
     dispatch({
       type: GET_DATA,
@@ -128,7 +128,7 @@ export const getproducts = () => async (dispatch) => {
 export const removeproduct = (id) => async (dispatch) => {
   try {
   const resp=  await axios.delete(
-      `http://localhost:7777/product/delete/${id}`,
+      `https://arba-backend-2-8gqc.onrender.com/product/delete/${id}`,
     );
    console.log(resp.data)
    dispatch({
@@ -148,7 +148,7 @@ export const Addproduct = (product) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(`http://localhost:7777/product/create`, {
+    const res = await axios.post(`https://arba-backend-2-8gqc.onrender.com/product/create`, {
       ...product
     });
     console.log(res.status);
@@ -175,7 +175,7 @@ export const addcategory = (Category) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(`http://localhost:7777/category/create`, {
+    const res = await axios.post(`https://arba-backend-2-8gqc.onrender.com/category/create`, {
       ...Category
     });
     console.log(res.status);
@@ -195,7 +195,7 @@ export const addcategory = (Category) => async (dispatch) => {
 export const getcategory = () => async (dispatch) => {
   try {
     const products = await axios.get(
-      `http://localhost:7777/category/get`
+      `https://arba-backend-2-8gqc.onrender.com/category/get`
     );
     dispatch({
       type: GET_CATEGORY,
@@ -209,7 +209,7 @@ export const getcategory = () => async (dispatch) => {
 export const editcategory = (category,id) => async (dispatch) => {
   try {
     await axios.patch(
-      `http://localhost:7777/category/update/${id}`,
+      `https://arba-backend-2-8gqc.onrender.com/category/update/${id}`,
       {
         ...category,
       }
@@ -226,7 +226,7 @@ export const editcategory = (category,id) => async (dispatch) => {
 export const removecategory = (id) => async (dispatch) => {
   try {
   const resp=  await axios.delete(
-      `http://localhost:7777/category/delete/${id}`,
+      `https://arba-backend-2-8gqc.onrender.com/category/delete/${id}`,
     );
    console.log(resp.data)
    dispatch({

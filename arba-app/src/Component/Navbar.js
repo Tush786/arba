@@ -98,6 +98,15 @@ import {
         Navigate("/login");
       }
     }
+
+    function handlestore(){
+      if(Token){
+        Navigate("/store");
+      }
+      else{
+        Navigate("/login");
+      }
+    }
   
     return (
       <>
@@ -193,6 +202,15 @@ import {
                     }}
                   >
                     Logout
+                  </MenuItem>
+
+                  <MenuItem
+                  onClick={handlestore}
+                    _hover={{
+                      bg: useColorModeValue("#D3D3D3", "rgba(0, 0, 0, 0.20)"),
+                    }}
+                  >
+                   Store
                   </MenuItem>
                 </MenuList>
               </Menu>
