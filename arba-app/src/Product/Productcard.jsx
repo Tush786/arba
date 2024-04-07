@@ -21,8 +21,8 @@ function Productcard({ title, description, image, price }) {
         </div>
 
         <div
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onClick={() => setIsHovered(true)}
+         
           className="w-[100%] bg-[rgb(0,171,197)] py-2 text-[white]"
         >
           {isHovered ? (

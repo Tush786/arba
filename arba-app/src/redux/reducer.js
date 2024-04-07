@@ -1,4 +1,4 @@
-import { EDIT_USER, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, POST_USER, RESET_USER } from "./actiontype";
+import { EDIT_USER, GET_CATEGORY, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, POST_USER, RESET_USER } from "./actiontype";
 
   
   const initialState = {
@@ -7,7 +7,8 @@ import { EDIT_USER, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, POST_USER, RESE
     status: "",
     token: "",
     statuscode:"",
-    products:[]
+    products:[],
+    category:[]
   };
   
   export const Reducer = (state = initialState, { type, payload }) => {
@@ -32,6 +33,8 @@ import { EDIT_USER, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, POST_USER, RESE
         return { ...state, statuscode: payload };
       case GET_DATA:
         return { ...state, products: payload };
+      case GET_CATEGORY:
+        return { ...state, category: payload };
       default:
         return state;
     }
