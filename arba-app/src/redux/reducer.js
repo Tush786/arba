@@ -1,4 +1,4 @@
-import { EDIT_USER, GET_CATEGORY, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, POST_USER, RESET_USER } from "./actiontype";
+import { CART_SIZE, EDIT_USER, GET_CARTDATA, GET_CATEGORY, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, POST_USER, RESET_USER } from "./actiontype";
 
   
   const initialState = {
@@ -8,7 +8,9 @@ import { EDIT_USER, GET_CATEGORY, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, P
     token: "",
     statuscode:"",
     products:[],
-    category:[]
+    category:[],
+    carts:[],
+    cartsize:"",
   };
   
   export const Reducer = (state = initialState, { type, payload }) => {
@@ -35,6 +37,10 @@ import { EDIT_USER, GET_CATEGORY, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, P
         return { ...state, products: payload };
       case GET_CATEGORY:
         return { ...state, category: payload };
+      case GET_CARTDATA:
+        return { ...state, carts: payload };
+      case CART_SIZE:
+        return { ...state, cartsize: payload };
       default:
         return state;
     }

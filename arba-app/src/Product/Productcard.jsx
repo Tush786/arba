@@ -1,9 +1,32 @@
 import { Button, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
+import { addtoCart, getcart } from "../redux/action";
+import { useDispatch, useSelector } from "react-redux";
 
-function Productcard({ title, description, image, price }) {
-  const [isHovered, setIsHovered] = useState(false);
+function Productcard(product) {
+  console.log(product)
+  const {title,price,image,_id}=product
+  // const [isHovered, setIsHovered] = useState(false);
+  const [q, setQ] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const carts = useSelector((state) => state.user.carts);
+  console.log( carts.orderItems);
+  const dispatch=useDispatch()
+
+  function addToCart() {
+    setQuantity(quantity+1)
+    console.log(quantity)
+   
+    const cart = {
+      product: product,
+      quantity: quantity+1,
+    };
+    dispatch(addtoCart(cart)).then(()=>{
+      dispatch(getcart());
+    })
+   
+  }
 
   return (
     <div className="">
@@ -21,11 +44,11 @@ function Productcard({ title, description, image, price }) {
         </div>
 
         <div
-          onClick={() => setIsHovered(true)}
+          // onClick={() => setIsHovered(true)}
          
           className="w-[100%] bg-[rgb(0,171,197)] py-2 text-[white]"
         >
-          {isHovered ? (
+          {/* {isHovered ? (
             <div>
               <button>
                 <span
@@ -47,9 +70,10 @@ function Productcard({ title, description, image, price }) {
                 </span>
               </button>
             </div>
-          ) : (
-            <button>Add to Cart</button>
-          )}
+          ) : ( */}
+           
+            <button onClick={addToCart}>Add to Cart</button>
+          {/* )} */}
         </div>
       </div>
 

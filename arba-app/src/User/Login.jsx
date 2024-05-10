@@ -28,7 +28,7 @@ function Login() {
   // const statuscode="200"
   const token = useSelector((state) => state.user.token);
   // const token="guririnrnrgnoiuy8"
-  console.log(token);
+  // console.log(token);
   const toast = useToast();
 
   const [user, setUser] = useState({
@@ -75,8 +75,8 @@ function Login() {
 
     Navigate("/");
   };
-  console.log(user);
-  const [userj, setUserj] = useState();
+  // console.log(user);
+  // const [userj, setUserj] = useState();
 
   useEffect(() => {
     if (statuscode == "200" || statuscode == "201") {

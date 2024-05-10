@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getproducts } from '../redux/action';
 import Productcard from '../Product/Productcard';
-import Carousel from "react-simply-carousel";
+
 import { Button, Text } from '@chakra-ui/react';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import CarouselComp from './Carousel';
 function Home() {
   const [arr,setArr]=useState()
   const [activeSlide, setActiveSlide] = useState(0);
   const [showtnc,setShowtnc] =useState(false)
   const products = useSelector((state) => state.user.products);
-  console.log(products)
+  // console.log(products)
   const dispatch=useDispatch()
 
   useEffect(()=>{
@@ -37,12 +38,13 @@ function Home() {
 
 
   return (
+    <div>
+      <CarouselComp/>
     <div className='flex flex-col w-[80%] m-auto'>
-    <div className='mb-10'>
+    {/* <div className='mb-10'>
            <Carousel
           containerProps={{
             style: {
-            
               margin: "auto",
               justifyContent: "space-between",
               userSelect: "none",
@@ -100,7 +102,9 @@ function Home() {
             </div>
           ))}
         </Carousel>
-        </div>
+        </div> */}
+
+
 
         {showtnc && (
         <>
@@ -131,6 +135,8 @@ function Home() {
         <Button>All Product <IoIosArrowForward/> <IoIosArrowForward/> </Button>
       </div>
     </div>
+    </div>
+
   )
 }
 

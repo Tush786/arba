@@ -7,6 +7,7 @@ import PrivateRoute from './Privateroutes'
 import Home from '../Component/Home'
 import Product from '../Product/Product'
 import Categories from '../Categories/Categories'
+import Cart from '../Product/Cart'
 
 function Allroutes() {
   return (
@@ -26,7 +27,7 @@ function Allroutes() {
         <Route path='/profile' element={<Profile/>}></Route>
         <Route path='/product' element={<Product/>}></Route>
         <Route path='/store' element={<Categories/>}></Route>
-        <Route path='/cart' ></Route>
+        <Route path='/cart' element={<Cart/>}></Route>
       </Routes>
     </div>
   )

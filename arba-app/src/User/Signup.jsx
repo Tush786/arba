@@ -34,7 +34,7 @@ function Signup({onClose, onOpen }) {
       cpassword:""
     });
   
-    console.log(user)
+    // console.log(user)
   
     const HandleChange = (e) => {
       e.preventDefault();
