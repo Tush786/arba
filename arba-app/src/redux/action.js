@@ -19,11 +19,12 @@ import {
 } from "./actiontype";
 
 export const getUser = (id) => async (dispatch) => {
+  console.log(id)
   try {
     const user = await axios.get(`http://localhost:7777/user/${id}`);
     dispatch({
       type: GET_USER,
-      payload: user.data,
+      payload: user.data[0],
     });
   } catch (err) {
     console.log(err);
@@ -59,6 +60,16 @@ export const LoginUser = (user) => async (dispatch) => {
     console.log(res.data);
     console.log(res.data.token);
 
+    const userObj = {
+      userid:res.data.user_present._id,
+      username: res.data.user_present.userName,
+      fullname: res.data.user_present.fullName
+    };
+
+    // console.log(userObj)
+    
+    localStorage.setItem("userdata", JSON.stringify(userObj));
+
     localStorage.setItem("Token", res.data.token);
     dispatch({
       type: LOGIN_USER,
@@ -92,15 +103,33 @@ export const setUser = (_id) => async (dispatch) => {
   }
 };
 
-export const editUser = (user) => async (dispatch) => {
+export const editUser = (user,id) => async (dispatch) => {
+  console.log(user,id)
   try {
-    await axios.patch(`http://localhost:7777user/editUser/${user._id}`, {
+   const resp= await axios.patch(`http://localhost:7777/user/editUser/${id}`, {
       ...user,
     });
-    dispatch({
-      type: EDIT_USER,
-      payload: user,
+    console.log(resp)
+    // dispatch({
+    //   type: EDIT_USER,
+    //   payload: user,
+    // });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const editAvatar = (avatar,id) => async (dispatch) => {
+  console.log(avatar,id)
+  try {
+   const resp= await axios.patch(`http://localhost:7777/user/editUser/avatar/${id}`, {
+      ...avatar,
     });
+    console.log(resp)
+    // dispatch({
+    //   type: EDIT_USER,
+    //   payload: user,
+    // });
   } catch (err) {
     console.log(err);
   }

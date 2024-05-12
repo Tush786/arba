@@ -31,6 +31,9 @@ function Login() {
   // console.log(token);
   const toast = useToast();
 
+  const userdata=useSelector((state)=>state.user.user)
+  console.log(userdata)
+
   const [user, setUser] = useState({
     email: "",
     password: "",

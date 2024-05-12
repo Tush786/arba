@@ -8,6 +8,7 @@ import {
   getcart,
   getproducts,
 } from "../redux/action";
+import { BiHeart } from "react-icons/bi";
 
 function Product() {
   const [q, setQ] = useState(0);
@@ -64,18 +65,20 @@ function Product() {
       <div className="grid grid-cols-4 gap-4 ">
         {products.map((el, ind) => {
           return (
-            <div key={ind} className="">
-              <div className="w-full m-auto h-[250px] flex justify-center items-center">
-                <img className="h-[100%] w-[100%]" src={el.image} alt="title" />
+            <div key={ind} className=''>
+              <div className="relative left-[90%] top-8">
+                <BiHeart className='cursor-pointer' style={{ fontSize: '24px' }}/>
+              </div>
+              <div className="w-full m-auto h-[250px] flex justify-center items-center rounded-sm" style={{ boxShadow: ' rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }}>
+                <img className="h-[100%] w-[100%] rounded-sm" src={el.image} alt="title" />
               </div>
               <div
-                className="relative  bottom-10 bg-white flex flex-col gap-2 text-[black]  p-2 z-20 w-[80%] m-auto "
-                style={{ boxShadow: "0px 3px 8px rgba(0, 0, 0, 0.24)" }}
+                className="relative  bottom-10 right-6 bg-white flex flex-col gap-2 text-[black]  p-2 z-20 w-[75%] m-auto "
+                style={{ boxShadow: "0px 3px 8px rgba(0, 0, 0, 0.11)" }}
               >
                 <div className="text-left flex flex-col gap-1">
-                  <Text>Product 1</Text>
-                  <Text>{el.title}</Text>
-                  <Text> $ {el.price}</Text>
+                  <Text className="text-[20px] font-[600] text-[rgb(111,112,112)]">{el.title}</Text>
+                  <Text className="text-[20px] font-[600] text-[rgb(111,112,112)]"> $ {el.price}</Text>
                 </div>
 
                 <div

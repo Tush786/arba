@@ -15,13 +15,13 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getcart());
-  },[]);
+  },[carts]);
 
   return (
     <div>
-      <div className="product_container">
-        <div className="product_heading">
-          <Heading>Carts Products</Heading>
+      <div className="product_container w-[80%] m-auto">
+        <div className="product_heading mb-4">
+          <Heading className="text-left">Carts Products</Heading>
         </div>
         <div className="Product_container">
           {loading ? (
@@ -35,7 +35,7 @@ const Cart = () => {
           ) : (
             <div className="Product_container">
               {carts.orderItems && carts.orderItems.length > 0 ? (
-                <div className="products">
+                <div className="products grid grid-cols-4 gap-4 ">
                   {carts.orderItems.map((el, ind) => (
                 
                     <CartsProduct key={ind} {...el} />

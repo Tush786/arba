@@ -18,8 +18,11 @@ import {
   Toast,
   useToast,
   Image,
+  Input,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, PhoneIcon, SearchIcon } from "@chakra-ui/icons";
 import { MdConnectWithoutContact } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,11 +45,11 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const toast = useToast();
   const User = useSelector((state) => state.user.user);
-  console.log(User.username);
+  // console.log(User.username);
   const cartno = useSelector((state) => state.user.cartsize);
 
 
-  console.log(cartno);
+  // console.log(cartno);
   const { username } = User;
 
   useEffect(() => {
@@ -140,26 +143,25 @@ export default function Navbar() {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={"center"} className="flex  gap-2">
-            <BsCartFill className="CART_ICON" onClick={()=>{
-              Navigate("/cart");
-            }} /> {cartno}
-            <Menu>
-              <MenuButton
-              /*
-                    as={Button}
-                    rounded={"full"}
-                    variant={"link"}
-                    cursor={"pointer"}
-                    minW={0}
-                    //_focus={{ boxShadow: "0 0 1px 2px rgb(241, 90, 34)" }}
-                    _focus={{ boxShadow: "none" }}
-                    */
-              >
-                <Avatar size={"sm"} bg="grey" />
-              </MenuButton>
-              <MenuList>
-                <MenuItem
+          <Flex alignItems="center" className="flex gap-4">
+      <div>
+        <InputGroup>
+          <InputLeftElement pointerEvents='none'>
+            <SearchIcon color='gray.300' />
+          </InputLeftElement>
+          <Input type='tel' placeholder='Search' />
+        </InputGroup>
+      </div>
+      <div className="flex gap-1">
+        <BsCartFill className="CART_ICON" onClick={() => Navigate("/cart")} style={{ fontSize: '24px' }} />
+        {cartno > 0 && <span className="cart-qty">{cartno}</span>}
+      </div>
+      <Menu>
+        <MenuButton>
+          <Avatar size={"sm"} bg="grey" />
+        </MenuButton>
+        <MenuList>
+        <MenuItem
                   onClick={() => {
                     Navigate("/login");
                   }}
@@ -198,9 +200,9 @@ export default function Navbar() {
                 >
                   Store
                 </MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex>
+        </MenuList>
+      </Menu>
+    </Flex>
         </Flex>
 
         {isOpen ? (
