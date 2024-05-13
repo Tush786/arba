@@ -4,18 +4,30 @@ import { Heading, Spinner, useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getcart } from "../redux/action";
 import CartsProduct from "./CartsProduct";
+import Cartempty from "../Handlesideeffect/Cartempty";
+import Loaderhandle from "../Handlesideeffect/Loader";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const toast = useToast();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const carts = useSelector((state) => state.user.carts);
   console.log( carts.orderItems);
 
   useEffect(() => {
-    dispatch(getcart());
-  },[]);
+    dispatch(getcart())
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
+  }, [dispatch]);
+ 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loaderhandle/>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -43,10 +55,7 @@ const Cart = () => {
                 </div>
               ) : (
                 <div>
-                  <Heading>
-                    You don't have products in cart. Go to Product page and add
-                    items.
-                  </Heading>
+                 <Cartempty/>
                 </div>
               )}
             </div>

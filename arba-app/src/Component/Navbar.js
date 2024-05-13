@@ -140,7 +140,7 @@ export default function Navbar() {
             alignItems={"center"}
             className="flex justify-center items-center"
           >
-         <Image src={Logo} width={44} onClick={()=>{
+         <Image className='cursor-pointer' src={Logo} width={44} onClick={()=>{
           Navigate('/')
          }}/>
             <HStack

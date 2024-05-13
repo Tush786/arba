@@ -60,8 +60,10 @@ function Product() {
       product: el,
       quantity: quantity,
     };
-    dispatch(addtoCart(cart));
-    dispatch(getcart());
+    dispatch(addtoCart(cart)).then(()=>{
+      dispatch(getcart());
+    })
+    setQuantity(1)
   }
 
   if (loading) {
