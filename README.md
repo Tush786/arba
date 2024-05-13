@@ -173,6 +173,9 @@ Following are the major dev-dependencies of the project:
 - /login            Login page
 - /product          All product
 - /profile         Profile Page
+- /Cart            Cart Page
+- /profile         Profile Page
+
 </pre>
 
 ## npm scripts
