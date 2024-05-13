@@ -135,6 +135,19 @@ export const editAvatar = (avatar,id) => async (dispatch) => {
   }
 };
 
+// <=================== Change Password ===============================>
+  export const changepassword = (passobj,id) => async (dispatch) => {
+    console.log(passobj,id)
+    try {
+     const resp= await axios.put(`http://localhost:7777/user/changepassword/${id}`, {
+        ...passobj,
+      });
+      console.log(resp)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 // <------------------- Product Action ------------->
 export const getproducts = () => async (dispatch) => {
   const token = localStorage.getItem("Token");
@@ -379,7 +392,7 @@ export const editcartitems = () => async (dispatch) => {
 };
 
 
-export const removecart=(_id)=>async(dispatch)=>{
+export const removecart=(_id)=>async(dispatch)=>{ 
   console.log(_id)
     const token = localStorage.getItem("Token");
   const config = {

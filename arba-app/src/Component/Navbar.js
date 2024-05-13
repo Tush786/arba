@@ -34,8 +34,8 @@ import { getcart } from "../redux/action";
 import Logo from "../Images/download44-removebg-preview.png"
 
 const Links = [
-  // { path: "/createtask", title: "Create-Task", type: true },
-  // { path: "/taskcards", title: "Show-Task", type: true },
+  { path: "/product", title: "All Product", type: true },
+  { path: "/aboutus", title: "About Us", type: true },
 ];
 
 export default function Navbar() {
@@ -102,6 +102,20 @@ export default function Navbar() {
       Navigate("/login");
     }
   }
+  function HandleRoute({ value }) {
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      const Token = localStorage.getItem("Token");
+      if (Token) {
+        Navigate(`/${value}`);
+      } else {
+        Navigate("/login");
+      }
+    }, [value, Navigate]);
+  
+    return <></>; // Placeholder return, as this component doesn't render anything
+  }
 
   return (
     <>
@@ -126,7 +140,9 @@ export default function Navbar() {
             alignItems={"center"}
             className="flex justify-center items-center"
           >
-         <Image src={Logo} width={44} />
+         <Image src={Logo} width={44} onClick={()=>{
+          Navigate('/')
+         }}/>
             <HStack
               as={"nav"}
               spacing={4}
@@ -137,6 +153,7 @@ export default function Navbar() {
                 <Link
                   className="link p-2 cursor-pointer rounded-[10px] text-[20px] hover:text-blue-500 hover:bg-gray-100"
                   to={el.path}
+                  onClick={()=>{HandleRoute(el.path)}}
                 >
                   {el.title}
                 </Link>

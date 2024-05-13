@@ -8,16 +8,18 @@ import { BiHeart } from "react-icons/bi";
 
 function CartsProduct(elem) {
   console.log(elem);
-  const { product, quantity } = elem;
+  const { product, quantity} = elem;
   const [loading, setLoading] = useState(false);
   const [quantit, setQuantit] = useState(quantity);
   const { title, description, price, _id, image } = product;
   const [cartProductId, setCartProductId] = useState("");
   console.log(product, quantity);
   const dispatch = useDispatch();
+  console.log(elem._id)
 
   const carts = useSelector((state) => state.user.carts);
   console.log(carts.orderItems);
+  const [cart,setCart]=useState({})
 
   const removeFromCart = (elem) => {
     const cart = {
@@ -25,17 +27,36 @@ function CartsProduct(elem) {
       quantity: quantity - 1,
       id: elem._id,
     };
-    dispatch(addtoCart(cart));
-    dispatch(getcart());
+    setCart(cart)
+    console.log(cart.quantity)
+   
+    
   };
+
+  useEffect(()=>{
+    if(cart.quantity<=0){
+      dispatch(removecart(elem._id)).then(()=>{
+       dispatch(getcart())
+      })
+      console.log(elem._id)
+   }
+   else{
+     dispatch(addtoCart(cart)).then(()=>{
+       dispatch(getcart());
+     })
+   }
+  },[cart])
 
   function handleAddToCart() {
     const cart = {
       product: product,
       quantity: quantity + 1,
     };
-    dispatch(addtoCart(cart));
-    dispatch(getcart());
+    
+    dispatch(addtoCart(cart)).then(()=>{
+      dispatch(getcart());
+    })
+    
   }
 
   return (

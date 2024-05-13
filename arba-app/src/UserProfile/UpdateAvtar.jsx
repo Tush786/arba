@@ -25,16 +25,26 @@ function UpdateAvtar() {
     const userDataObj = JSON.parse(localStorage.getItem("userdata"));
     const userD=useSelector((state)=>state.user.user)
     const [form, setForm] = useState({
-        avatar:userD.avatar,
-      });
+      avatar: userD.avatar,
+    });
     
-      const {userid}=userDataObj
-      const dispatch=useDispatch()
-  
-      function handlechange(e) {
-        e.preventDefault();
-        setForm({ ...form, [e.target.name]: e.target.files[0] });
+    const { userid } = userDataObj;
+    const dispatch = useDispatch();
+    
+    const handlechange = (event) => {
+      const file = event.target.files?.[0];
+      if (!file) {
+        return;
       }
+      const formData = new FormData(); // Corrected FormData constructor
+      formData.append("image", file);
+    
+      // Update the form state with the new formData
+      setForm({
+        ...form,
+        image: formData, // Assuming you want to store the FormData in the state
+      });
+    };
     
       function handleSubmit(e) {
         e.preventDefault()

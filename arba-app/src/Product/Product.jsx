@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Spinner, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Button} from '@chakra-ui/react'
@@ -9,6 +9,7 @@ import {
   getproducts,
 } from "../redux/action";
 import { BiHeart } from "react-icons/bi";
+import Loaderhandle from "../Handlesideeffect/Loader";
 
 function Product() {
   const [q, setQ] = useState(0);
@@ -18,6 +19,7 @@ function Product() {
 
   const products = useSelector((state) => state.user.products) || [];
   const carts = useSelector((state) => state.user.carts) || [];
+  const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
   console.log(carts);
@@ -39,10 +41,16 @@ function Product() {
   //   }
   // };
 
-
+  
   useEffect(() => {
-    dispatch(getproducts());
+    dispatch(getproducts())
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(getproducts());
+  // }, [dispatch]);
 
   function handleAddToCart(el) {
     setQuantity(quantity+1)
@@ -56,13 +64,19 @@ function Product() {
     dispatch(getcart());
   }
 
-
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loaderhandle/>
+      </div>
+    );
+  }
 
 
   return (
-    <div className="w-[80%] m-auto mt-4">
+    <div className="w-[80%]  m-auto mt-4">
       <h2 className="text-left text-[36px] font-[600]">Products</h2>
-      <div className="grid grid-cols-4 gap-4 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-4">
         {products.map((el, ind) => {
           return (
             <div key={ind} className=''>

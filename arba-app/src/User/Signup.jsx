@@ -31,14 +31,22 @@ function Signup({onClose, onOpen }) {
       fullName: "",
       email: "",
       password: "",
+      // avatar:null,
       cpassword:""
     });
   
     // console.log(user)
   
     const HandleChange = (e) => {
-      e.preventDefault();
-      setUser({ ...user, [e.target.name]: e.target.value })
+      // e.preventDefault();
+      // setUser({ ...user, [e.target.name]: e.target.value })
+      // if (e.target.name === "image") {
+      //   // For file input
+      //   setUser({ ...user, image: e.target.files[0] });
+      // } else {
+      //   // For other inputs
+        setUser({ ...user, [e.target.name]: e.target.value });
+      // }
     }
   
     const HandleSubmit = async (e) => {
@@ -185,6 +193,19 @@ function Signup({onClose, onOpen }) {
         
       </InputRightElement>
     </InputGroup>
+
+    {/* <InputGroup size='md' mb='4'>
+      <Input
+        className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
+            type="file"
+            name="avatar"
+            accept="avatar/*"
+            onChange={(e) => HandleChange(e)}
+      />
+      <InputRightElement width='4.5rem'>
+        
+      </InputRightElement>
+    </InputGroup> */}
     
       <InputGroup size='md' mb='4'>
       <Input

@@ -5,7 +5,7 @@ import Navbar from './Component/Navbar';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App overflow-x-hidden">
       {/* <h1 className=''>React App</h1> */}
       <Navbar/>
       <Allroutes/>

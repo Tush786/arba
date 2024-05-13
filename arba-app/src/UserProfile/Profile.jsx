@@ -19,6 +19,7 @@ import Uploadprofile from "./Uploadprofile";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../redux/action";
 import UpdateAvtar from "./UpdateAvtar";
+import ChangePaaword from "./ChangePassword";
 
 function Profile() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -110,9 +111,7 @@ function Profile() {
         <TandC />
 
         <div>
-          <Button bg="#b1c1cf" textColor="white" px="10" onClick={onOpen}>
-            Forget Password
-          </Button>
+        <ChangePaaword/>
         </div>
       </div>
     </div>

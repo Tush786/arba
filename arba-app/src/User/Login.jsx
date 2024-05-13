@@ -31,8 +31,8 @@ function Login() {
   // console.log(token);
   const toast = useToast();
 
-  const userdata=useSelector((state)=>state.user.user)
-  console.log(userdata)
+  // const userdata=useSelector((state)=>state.user.user)
+  // console.log(userdata)
 
   const [user, setUser] = useState({
     email: "",
@@ -107,10 +107,14 @@ function Login() {
     dispatch({ type: RESET_USER, payload: "" });
   }, [statuscode]);
 
-  const Token = localStorage.getItem("Token");
-  if (Token) {
-    return <Navigate to={"/"} />;
-  }
+ 
+  useEffect(() => {
+    const Token = localStorage.getItem("Token");
+    if (Token) {
+      Navigate("/");
+    }
+  }, []);
+  
 
   return (
     <section className="h-screen flex flex-col  md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">

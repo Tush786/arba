@@ -1,6 +1,5 @@
 import { CART_SIZE, EDIT_USER, GET_CARTDATA, GET_CATEGORY, GET_DATA, GET_USER, LOGIN_USER, LOGOUT_USER, POST_USER, RESET_USER } from "./actiontype";
 
-  
   const initialState = {
     user: {},
     loggedIn: false,
@@ -12,7 +11,7 @@ import { CART_SIZE, EDIT_USER, GET_CARTDATA, GET_CATEGORY, GET_DATA, GET_USER, L
     carts:[],
     cartsize:"",
   };
-  
+                                                                                                                     
   export const Reducer = (state = initialState, { type, payload }) => {
     switch (type) {
       case GET_USER:
