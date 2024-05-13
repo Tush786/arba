@@ -2,16 +2,30 @@
 
 A MERN application for basic tasks management.
 <h1>Home Page</h1>
-<a href='https://postimg.cc/9r5V9rx3' target='_blank'><img src='https://i.postimg.cc/TYhPZbgP/LV-H.png' border='0' alt='LV-H'/></a>
+<a href="https://ibb.co/pQ5ScSz"><img src="https://i.ibb.co/68LkzkP/LV-H.png" alt="LV-H" border="0"></a>
+
+<a href="https://ibb.co/VYWD2nc"><img src="https://i.ibb.co/JjR256w/MV-H.png" alt="MV-H" border="0"></a>
+
+<h1>Term and Condition</h1>
+<a href="https://ibb.co/Xp6qTqn"><img src="https://i.ibb.co/VDbs8sF/LV-TnC.png" alt="LV-TnC" border="0"></a>
+
+<h1>Product Page</h1>
+<a href="https://ibb.co/MS7SnSN"><img src="https://i.ibb.co/F3z3637/LV-PR.png" alt="LV-PR" border="0"></a>
+<a href="https://ibb.co/7kzpzD1"><img src="https://i.ibb.co/GHJMJD5/MV-PR.png" alt="MV-PR" border="0"></a>
+
+<h1>Cart Page</h1>
+<a href="https://ibb.co/XJ4h9Dm"><img src="https://i.ibb.co/WK3bQ0S/LV-CRT.png" alt="LV-CRT" border="0"></a>
+<a href="https://ibb.co/ggQQ82x"><img src="https://i.ibb.co/Jk88T19/MV-CRT.png" alt="MV-CRT" border="0"></a>
 
 <h1>Profile Page</h1>
 <a href="https://ibb.co/RPcYh58"><img src="https://i.ibb.co/Mp7Z8Xd/Profile.png" alt="Profile" border="0"></a>
 
-<h1>Signup Page</h1>
+<h1>Signup Page / Login</h1>
 <a href="https://ibb.co/WFhHGsX"><img src="https://i.ibb.co/RPFgY7K/Signup.png" alt="Signup" border="0"></a>
+<a href="https://ibb.co/DDGQ3WS"><img src="https://i.ibb.co/MD87qS3/LV-LG.png" alt="LV-LG" border="0"></a>
 
-<h1>Product Page</h1>
-<a href="https://ibb.co/VTq27qL"><img src="https://i.ibb.co/qprktrD/Product.png" alt="Product" border="0"></a>
+<h1>Store Page</h1>
+<a href="https://ibb.co/rpQGzkY"><img src="https://i.ibb.co/FYhby62/LV-STR.png" alt="LV-STR" border="0"></a>
 
 ## Table of Contents
 
@@ -139,6 +153,12 @@ Following are the major dev-dependencies of the project:
 - DELETE   /category/delete/:id
 - PATCH      /api/update/:id
 - DELETE   /category/product/:id
+- PUT  /user/changepassword/:id
+- PATCH   /user/avatar/:id
+- GET   /cart/get
+- POST   /cart/create
+- DELETE   /cart/delete/:id
+   
 </pre>
 
 ## Frontend pages
