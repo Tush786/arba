@@ -1,14 +1,17 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Login from '../User/Login';
-import Signup from '../User/Signup';
-import Profile from '../UserProfile/Profile';
-import PrivateRoute from './Privateroutes';
-import Home from '../Component/Home';
-import Product from '../Product/Product';
-import Categories from '../Categories/Categories';
-import Cart from '../Product/Cart';
-import Aboutus from '../Handlesideeffect/Aboutus';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Login from "../User/Login";
+import Signup from "../User/Signup";
+import Profile from "../UserProfile/Profile";
+import PrivateRoute from "./Privateroutes";
+import Home from "../Component/Home";
+import Product from "../Product/Product";
+import Categories from "../Categories/Categories";
+import Cart from "../Product/Cart";
+import Aboutus from "../Handlesideeffect/Aboutus";
+import Resetpassword from "../UserProfile/ResetPassword"
+import Forgetpassword from "../UserProfile/Forgetpassword"
+
 
 function Allroutes() {
   return (
@@ -34,7 +37,7 @@ function Allroutes() {
             </PrivateRoute>
           }
         />
-     
+
         {/* Include Product route within PrivateRoute */}
         <Route
           path="/product"
@@ -63,14 +66,17 @@ function Allroutes() {
           }
         />
         {/* <Route path="/aboutus" element={<Aboutus />} /> */}
+
         <Route
           path="/aboutus"
           element={
             <PrivateRoute>
-            <Aboutus />
+              <Aboutus />
             </PrivateRoute>
           }
         />
+        <Route path="/resetPassword" element={<Resetpassword />} />
+        <Route path="/forgetpassword" element={<Forgetpassword/>} />
       </Routes>
     </div>
   );
