@@ -6,7 +6,7 @@ import Productupdates from "./Productupdates";
 function Categories() {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   return (
-    <div className="w-[80%] m-auto mt-4">
+    <div className="sm:w-[80%] w-[100%] m-auto mt-4">
       <Tabs className="" isFitted variant="enclosed">
         <TabList mb="1em">
           <Tab

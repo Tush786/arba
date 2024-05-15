@@ -30,7 +30,7 @@ function Resetpassword() {
           try {
               const token = searchParams.get("token");
               console.log(token)
-              const res = await axios.post("http://localhost:7777/pass/resetPassword", {token, password })
+              const res = await axios.post(`http://localhost:7777/pass/resetPassword`, {token, password })
               setMessage(res.data.message);
           } catch (error) {
               setError(error.response.data.message)
@@ -42,6 +42,7 @@ function Resetpassword() {
   }
   return (
     <div className="w-[30%] m-auto">
+    <h1 className='text-[24px] font-[600]'>Reset Password</h1>
       <form>
         <FormControl mt={4}>
           <FormLabel>Enter New Password</FormLabel>

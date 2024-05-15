@@ -12,11 +12,19 @@ import {
   ModalCloseButton,
   Input,
   ModalFooter,
+  Image,
+  Spinner,
 } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { Addproduct, editproduct, getproducts, removeproduct } from "../redux/action";
+import {
+  Addproduct,
+  editproduct,
+  getproducts,
+  removeproduct,
+} from "../redux/action";
+import Loaderhandle from "../Handlesideeffect/Loader";
 
 function Productupdates() {
   const [id, setId] = useState();
@@ -27,6 +35,7 @@ function Productupdates() {
     image: "",
     price: "",
   });
+  const [loading, setLoading] = useState(true); // Loading state
   const { isOpen, onOpen, onClose } = useDisclosure();
   const products = useSelector((state) => state.user.products);
   const dispatch = useDispatch();
@@ -43,8 +52,6 @@ function Productupdates() {
   function handlechange(e) {
     setProduct({ ...product, [e.target.name]: e.target.value });
   }
-
-  // console.log(product);
 
   function HandleSubmit(e) {
     e.preventDefault();
@@ -65,6 +72,7 @@ function Productupdates() {
       image: "",
       price: "",
     });
+    onClose();
   }
 
   function handleEdit(_id, el) {
@@ -81,8 +89,19 @@ function Productupdates() {
   }
 
   useEffect(() => {
-    dispatch(getproducts());
-  }, []);
+    dispatch(getproducts())
+      .then(() => setLoading(false)) // Set loading to false after data is fetched
+      .catch(() => setLoading(false)); // Set loading to false if there's an error
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loaderhandle/>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-3">
       {/* <Text textAlign='left' >Categories</Text> */}
@@ -113,107 +132,108 @@ function Productupdates() {
             {products.map((el, ind) => {
               return (
                 <tr key={ind}>
-                  <td className="border border-[#b1aeae] p-2">Image</td>
-                  <td className="border border-[#b1aeae] p-2">{el.title}</td>
-                  <td className="border border-[#b1aeae] p-2">{el.price}</td>
-                  <td className="border border-[#b1aeae] p-2 flex justify-center">
-                    <BiEdit
-                      onClick={() => {
-                        handleEdit(el._id, el);
-                      }}
-                      className="text-xl mr-1"
-                    />
-                  
-                    |{" "}
-                    <MdDelete
-                      onClick={() => {
-                        DeleteCategory(el._id);
-                      }}
-                      className="text-xl ml-1"
-                    />
+                  <td className="border border-[#b1aeae] p-2 flex justify-center items-center">
+                    <Image src={el.image} width={10} />
+                  </td>
+                  <td className="border border-[#b1aeae] p-2 h-[40px]">
+                  {el.title.length > 20 ? `${el.title.substring(0, 20)}...` : el.title}
+                    {/* {el.title} */}
+                  </td>
+                  <td className="border border-[#b1aeae] p-2 h-[40px]">
+                    {el.price}
+                  </td>
+                  <td className="border border-[#b1aeae] p-2 flex justify-center h-[40px]">
+                    <div className="flex pb-40">
+                      <BiEdit
+                        onClick={() => {
+                          handleEdit(el._id, el);
+                        }}
+                        className="text-xl mr-1"
+                      />
+                      |{" "}
+                      <MdDelete
+                        onClick={() => {
+                          DeleteCategory(el._id);
+                        }}
+                        className="text-xl ml-1"
+                      />
+                    </div>
                   </td>
                 </tr>
               );
             })}
-
-            <Modal
-                      initialFocusRef={initialRef}
-                      finalFocusRef={finalRef}
-                      isOpen={isOpen}
-                      onClose={onClose}
-                    >
-                      <ModalOverlay />
-                      <ModalContent>
-                        <ModalHeader>Edit Categories</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody pb={6}>
-                          <FormControl>
-                            <FormLabel>Title</FormLabel>
-                            <Input
-                              ref={initialRef}
-                              onChange={handlechange}
-                              name="title"
-                              placeholder="Enter Title"
-                              value={product.title}
-                            />
-                          </FormControl>
-
-                          <FormControl mt={4}>
-                            <FormLabel>Price</FormLabel>
-                            <Input
-                              onChange={handlechange}
-                              placeholder="Enter Price"
-                              name="price"
-                              value={product.price}
-                            />
-                          </FormControl>
-
-                          <FormControl mt={4}>
-                            <FormLabel>Image</FormLabel>
-                            <Input
-                              onChange={handlechange}
-                              type="text"
-                              placeholder="Enter Image"
-                              name="image"
-                              value={product.image}
-                            />
-
-                              {/* <Input type='file' id='fileInput' name="image" style={{ display: 'none' }} placeholder='Select Image'/>
-  <Button className='text-[20px] font-[600] text-[white]' onClick={() => document.getElementById("fileInput").click()}>Select Image</Button>  */}
-                        
-                          </FormControl>
-
-                          <FormControl mt={4}>
-                            <FormLabel>Description</FormLabel>
-                            <Input
-                              onChange={handlechange}
-                              placeholder="Enter Description"
-                              name="description"
-                              value={product.description}
-                            />
-                          </FormControl>
-                        </ModalBody>
-
-                        <ModalFooter>
-                          <Button
-                            onClick={HandleSubmit}
-                            colorScheme="blue"
-                            mr={3}
-                          >
-                            {edit ? "Update" : "Submit"}
-                          </Button>
-                          <Button onClick={onClose}>Cancel</Button>
-                        </ModalFooter>
-                      </ModalContent>
-                    </Modal>
           </tbody>
         </table>
       </div>
+
+      <Modal
+        initialFocusRef={initialRef}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit Categories</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Title</FormLabel>
+              <Input
+                ref={initialRef}
+                onChange={handlechange}
+                name="title"
+                placeholder="Enter Title"
+                value={product.title}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Price</FormLabel>
+              <Input
+                onChange={handlechange}
+                placeholder="Enter Price"
+                name="price"
+                value={product.price}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Image</FormLabel>
+              <Input
+                onChange={handlechange}
+                type="text"
+                placeholder="Enter Image"
+                name="image"
+                value={product.image}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Description</FormLabel>
+              <Input
+                onChange={handlechange}
+                placeholder="Enter Description"
+                name="description"
+                value={product.description}
+              />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button onClick={HandleSubmit} colorScheme="blue" mr={3}>
+              {edit ? "Update" : "Submit"}
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }
 
 export default Productupdates;
+
 
 
 

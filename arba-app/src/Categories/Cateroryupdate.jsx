@@ -63,6 +63,7 @@ function CategoriesUpdate() {
       slug: "",
       image: "",
     });
+    onClose()
   }
 
   useEffect(() => {
@@ -120,21 +121,21 @@ function CategoriesUpdate() {
               return (
                 <tr key={ind}>
                   <td className="border border-[#b1aeae] flex justify-center items-center p-2">
-                    <img src={el.image} width={50} />
+                    <img src={el.image} width={30} />
                   </td>
-                  <td className="border border-[#b1aeae] p-2">{el.name}</td>
-                  <td className="border border-[#5a4040] p-2">{el.slug}</td>
-                  <td className="border h-full border-[#b1aeae] p-2 flex justify-center">
-                    <button className="bg-white">
+                  <td className="border border-[#b1aeae] p-2 h-[40px]">{el.name}</td>
+                  <td className="border border-[#5a4040] p-2 h-[40px]">{el.slug}</td>
+                  <td className="border  border-[#b1aeae] p-2 flex justify-center h-[40px]">
+                    <div className="bg-white flex justify-end items-center">
                       <BiEdit
                         onClick={() => {
                           handleEdit(el._id, el);
                         }}
                         className="text-xl mr-1"
                       />{" "}
-                    </button>
+               
                     <span>|</span>
-                    <button>
+                   
                       {" "}
                       <MdDelete
                         onClick={() => {
@@ -142,7 +143,7 @@ function CategoriesUpdate() {
                         }}
                         className="text-xl ml-1"
                       />
-                    </button>
+                    </div>
 
                 
                   </td>

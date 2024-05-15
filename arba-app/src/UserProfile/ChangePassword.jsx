@@ -15,67 +15,73 @@ import {
   } from "@chakra-ui/react";
   import React, { useRef, useState } from "react";
   import { useDispatch } from "react-redux";
-  import { Form } from "react-router-dom";
+  import { Form, useNavigate } from "react-router-dom";
 import { changepassword } from "../redux/action";
 
   
   function ChangePaaword() {
-    const userDataObj = JSON.parse(localStorage.getItem("userdata"));
-    const [pass, setPass] = useState({
-      currentPass:"",
-      newPass:"",
-      confnewpassword:""
-    });
+    const Navigate=useNavigate();
+    // const userDataObj = JSON.parse(localStorage.getItem("userdata"));
+    // const [pass, setPass] = useState({
+    //   currentPass:"",
+    //   newPass:"",
+    //   confnewpassword:""
+    // });
   
-    const {userid}=userDataObj
-    const dispatch=useDispatch()
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const initialRef = useRef(null);
-    const finalRef = useRef(null);
+    // const {userid}=userDataObj
+    // const dispatch=useDispatch()
+    // const { isOpen, onOpen, onClose } = useDisclosure();
+    // const initialRef = useRef(null);
+    // const finalRef = useRef(null);
   
-    function handlechange(e) {
-      e.preventDefault();
-      setPass({ ...pass, [e.target.name]: e.target.value });
-    }
+    // // function handlechange(e) {
+    // //   e.preventDefault();
+    // //   setPass({ ...pass, [e.target.name]: e.target.value });
+    // // }
   
-    const toast = useToast()
-    function handleSubmit(e) {
-      e.preventDefault()
-      const {newPass,currentPass}=pass;
-      if (currentPass == "") {
-        return toast({
-          title: 'Enter Your Current Password',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
-      }
-      if (newPass == "" ) {
-        return toast({
-          title: 'Enter Your New Password',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
-      }
+    // const toast = useToast()
+    // function handleSubmit(e) {
+    //   e.preventDefault()
+    //   const {newPass,currentPass}=pass;
+    //   if (currentPass == "") {
+    //     return toast({
+    //       title: 'Enter Your Current Password',
+    //       status: 'error',
+    //       duration: 3000,
+    //       isClosable: true,
+    //     })
+    //   }
+    //   if (newPass == "" ) {
+    //     return toast({
+    //       title: 'Enter Your New Password',
+    //       status: 'error',
+    //       duration: 3000,
+    //       isClosable: true,
+    //     })
+    //   }
 
-      if (newPass == currentPass) {
-        return toast({
-          title: 'Please Check New Password',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
-      }
+    //   if (newPass == currentPass) {
+    //     return toast({
+    //       title: 'Please Check New Password',
+    //       status: 'error',
+    //       duration: 3000,
+    //       isClosable: true,
+    //     })
+    //   }
 
-      dispatch(changepassword(pass,userDataObj.userid))
-      onClose();
-    }
+    //   dispatch(changepassword(pass,userDataObj.userid))
+    //   onClose();
+    // }
   
     return (
       <div>
-        <Button onClick={onOpen} bg='#b1c1cf' textColor='#fff' >Change Password</Button>
-        <Modal
+        <Button 
+        // onClick={onOpen}
+        onClick={()=>{
+          Navigate('/forgetpassword')
+        }}
+         bg='#b1c1cf' textColor='#fff' >Change Password</Button>
+        {/* <Modal
           initialFocusRef={initialRef}
           finalFocusRef={finalRef}
           isOpen={isOpen}
@@ -126,7 +132,7 @@ import { changepassword } from "../redux/action";
               </Button>
             </ModalFooter>
           </ModalContent>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }

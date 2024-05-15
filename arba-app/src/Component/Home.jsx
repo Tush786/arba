@@ -70,7 +70,7 @@ function Home() {
         {products.length === 0 ? (
           <Loader/>
         ) : (
-          <div className="grid md:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 ">
+          <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-2 sm:gap-10 gap-10 ">
             {products.slice(0, 8).map((el, ind) => (
               <Productcard key={ind} {...el} />
             ))}
@@ -78,9 +78,16 @@ function Home() {
         )}
 
         <div onClick={() => nevigate('/product')} className="flex justify-end my-4">
-          <Button>
+        {
+            products.length == 0?(
+            null
+          ):(
+            <Button>
             All Product <IoIosArrowForward /> <IoIosArrowForward />
           </Button>
+          )
+        } 
+          
         </div>
       </div>
     </div>
