@@ -5,6 +5,8 @@ A MERN application for basic tasks management.
 <h3>Email : tusharsapate34@gmail.com</h3>
 <h3>Pass : Tushar@123</h3>
 
+<h5>Due To Render Login take some time So try 2 to 3 times</h5>
+
 <h1>Home Page</h1>
 <a href="https://ibb.co/pQ5ScSz"><img src="https://i.ibb.co/68LkzkP/LV-H.png" alt="LV-H" border="0"></a>
 
@@ -56,6 +58,7 @@ A MERN application for basic tasks management.
 - Product Page
 - Cart Page
 - Profile Page
+- forget password (nodemailer)
 
 ### Developer-side features
 
