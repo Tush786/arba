@@ -125,8 +125,9 @@ function Productupdates() {
 
 <div className="w-[20%] h-10 bg-[#edf2f7] rounded-sm">
         <Select className="rounded-sm" placeholder='Filter' onChange={(e)=>{setSort(e.target.value)}}>
+         <option value='asc'>Price Low to High</option>
   <option value='desc' className="py-4">Price High to Low</option>
-  <option value='asc'>Price Low to High</option>
+ 
 </Select>
 </div>
       </div>

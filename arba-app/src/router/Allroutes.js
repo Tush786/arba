@@ -65,16 +65,16 @@ function Allroutes() {
             </PrivateRoute>
           }
         />
-        {/* <Route path="/aboutus" element={<Aboutus />} /> */}
+        <Route path="/aboutus" element={<Aboutus />} />
 
-        <Route
+        {/* <Route
           path="/aboutus"
           element={
             <PrivateRoute>
               <Aboutus />
             </PrivateRoute>
           }
-        />
+        /> */}
         <Route path="/resetPassword" element={<Resetpassword />} />
         <Route path="/forgetpassword" element={<Forgetpassword/>} />
       </Routes>

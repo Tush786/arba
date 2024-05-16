@@ -21,7 +21,7 @@ import {
 export const getUser = (id) => async (dispatch) => {
   // console.log(id)
   try {
-    const user = await axios.get(`https://arba-backend-1-4267.onrender.com/user/${id}`);
+    const user = await axios.get(`http://localhost:7777/user/${id}`);
 
     // // const userObj = {
     // //   userid:user.data.user_present._id,
@@ -62,7 +62,7 @@ export const addUser = (user) => async (dispatch) => {
 export const LoginUser = (user) => async (dispatch) => {
   console.log(user);
   try {
-    const res = await axios.post(`https://arba-backend-1-4267.onrender.com/user/login`, {
+    const res = await axios.post(`http://localhost:7777/user/login`, {
       ...user,
     });
     // console.log(res.data);
@@ -164,7 +164,7 @@ export const getproducts = (sort) => async (dispatch) => {
     },
   };
   try {
-    const products = await axios.get(`https://arba-backend-1-4267.onrender.com/product/get?sort=${sort}`,config);
+    const products = await axios.get(`http://localhost:7777/product/get?sort=${sort}`,config);
     // console.log(products)
     dispatch({
       type: GET_DATA,
@@ -204,7 +204,7 @@ export const Addproduct = (product) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(`https://arba-backend-1-4267.onrender.com/product/create`, product,config
+    const res = await axios.post(`http://localhost:7777/product/create`, product,config
     );
     // console.log(res.status);
     dispatch({
