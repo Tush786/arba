@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Text, useToast } from '@chakra-ui/react';
-import { addtoCart, getcart } from '../redux/action';
+import { addtoCart, getcart, removecart } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiHeart } from 'react-icons/bi';
 
@@ -57,6 +57,30 @@ function Productcard(product) {
       });
   };
 
+  // const [cart, setCart] = useState({});
+  // const removeFromCart = () => {
+  //   const cart = {
+  //     product,
+  //     quantity: quantity - 1,
+  //     id: _id,
+  //   };
+  //   setCart(cart);
+  //   console.log(cart.quantity);
+  // };
+
+  // useEffect(() => {
+  //   if (cart.quantity <= 0) {
+  //     dispatch(removecart(._id)).then(() => {
+  //       dispatch(getcart());
+  //     });
+  //     console.log(._id);
+  //   } else {
+  //     dispatch(addtoCart(cart)).then(() => {
+  //       dispatch(getcart());
+  //     });
+  //   }
+  // }, [cart]);
+
   return (
     <div className="">
       <div className="relative left-[90%] top-8">
@@ -69,7 +93,7 @@ function Productcard(product) {
         <img className="h-[100%] w-[100%] rounded-sm" src={image} alt="title" />
       </div>
       <div
-        className="relative  bottom-10 right-6 bg-white flex flex-col gap-2 text-[black]  p-2 z-20 w-[75%] m-auto "
+        className="relative  bottom-10  bg-white flex flex-col gap-2 text-[black]  p-2 z-20 w-[75%] m-auto "
         style={{ boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.11)' }}
       >
         <div className="text-left flex flex-col gap-1">
@@ -86,7 +110,7 @@ function Productcard(product) {
             </Button>
           ) : (
             <div className='w-full flex flex-row justify-center items-center gap-4'>
-              <Button className='px-2' onClick={handleAddToCart}>-</Button><span>{quantity}</span><Button onClick={handleAddToCart}>+</Button>
+              <Button className='px-2' >-</Button><span>{quantity}</span><Button onClick={handleAddToCart}>+</Button>
             </div>
           )}
         </div>
