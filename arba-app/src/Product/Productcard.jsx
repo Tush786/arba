@@ -98,7 +98,7 @@ function Productcard(product) {
       >
         <div className="text-left flex flex-col gap-1">
           <Text className="text-[20px] font-[600] text-[rgb(111,112,112)]">
-            {title.length > 20 ? `${title.substring(0, 10)}...` : title}
+            {title.length > 20 ? `${title.substring(0, 12)}...` : title}
           </Text>
           <Text className="text-[20px] font-[600] text-[rgb(111,112,112)]"> ₹ {price}</Text>
         </div>
