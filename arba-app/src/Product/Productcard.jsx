@@ -6,37 +6,31 @@ import { BiHeart } from 'react-icons/bi';
 
 function Productcard(product) {
   const { title, price, image, _id } = product;
-  const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const carts = useSelector((state) => state.user.carts);
   const dispatch = useDispatch();
   const toast = useToast();
   const [qty, setQty] = useState(0);
-  const qtys=0;
-  // console.log(carts[0].quantity)
+  const [quantity, setQuantity] = useState(0); // Initialize quantity to 0 initially
 
   useEffect(() => {
-    console.log(carts)
     if (_id && carts && carts.length > 0) {
-      const arr = carts.find(el => el._id === _id);
-      console.log(arr)
+      const arr = carts.find(el => el.product._id === _id);
       if (arr) {
         setQty(arr.quantity);
-      } else {
-        setQty(0); // Reset qty if no matching item is found
+        setQuantity(arr.quantity); // Update quantity when qty changes
       }
     }
-  }, [carts, _id]);
-  
-  console.log(qty)
+  }, [carts, _id, setQty]);
 
   const handleAddToCart = () => {
     setIsLoading(true);
-    setQuantity(quantity + 1);
+    const updatedQuantity = quantity + 1; // Increment the quantity
+    setQuantity(updatedQuantity); // Update the local state immediately
 
     const cart = {
       product,
-      quantity: quantity,
+      quantity: updatedQuantity, // Pass the updated quantity to the add to cart action
     };
 
     dispatch(addtoCart(cart))
@@ -59,7 +53,7 @@ function Productcard(product) {
         });
       })
       .finally(() => {
-        setIsLoading(false); // Reset loading state regardless of success or failure
+        setIsLoading(false);
       });
   };
 
@@ -86,13 +80,13 @@ function Productcard(product) {
         </div>
 
         <div className="w-[100%] bg-[rgb(0,171,197)] py-2 text-[white]">
-          {qtys== 0 ? ( // If quantity is 0, show Add to Cart button
+          {qty === 0 ? (
             <Button isLoading={isLoading} colorScheme="blue" onClick={handleAddToCart}>
               Add to Cart
             </Button>
-          ) : ( // If quantity is not 0, show the quantity
+          ) : (
             <div className='w-full flex flex-row justify-center items-center gap-4'>
-              <Button className='px-2' >-</Button><span>{qty}</span><Button>+</Button>
+              <Button className='px-2' onClick={handleAddToCart}>-</Button><span>{quantity}</span><Button onClick={handleAddToCart}>+</Button>
             </div>
           )}
         </div>
