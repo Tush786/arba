@@ -1,68 +1,150 @@
+// import {
+//   Button,
+//   FormControl,
+//   FormLabel,
+//   Input,
+//   Modal,
+//   ModalBody,
+//   ModalCloseButton,
+//   ModalContent,
+//   ModalFooter,
+//   ModalHeader,
+//   ModalOverlay,
+//   useDisclosure,
+// } from "@chakra-ui/react";
+// import React, { useRef, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { editAvatar, getUser } from "../redux/action";
+
+// function UpdateAvtar() {
+//   const { isOpen, onOpen, onClose } = useDisclosure();
+//   const initialRef = useRef(null);
+//   const userDataObj = JSON.parse(localStorage.getItem("userdata"));
+//   const [avatarFile, setAvatarFile] = useState(null); // Updated state for avatar file
+//   const { userid } = userDataObj;
+//   const dispatch = useDispatch();
+
+//   const handleFileChange = (event) => {
+//     const file = event.target.files?.[0];
+//     if (!file) {
+//       return;
+//     }
+//     setAvatarFile(file); // Store the file in state
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+ 
+//     const formData = new FormData(); // Create a FormData object
+//     formData.append("file", avatarFile); // Append the file to FormData
+
+//     dispatch(editAvatar(formData, userid)).then(() => {
+//       dispatch(getUser(userid));
+//     });
+//     onClose();
+//   };
+
+//   return (
+//     <div>
+//       <Button onClick={onOpen}>Update Avatar</Button>
+//       <Modal
+//         initialFocusRef={initialRef}
+//         isOpen={isOpen}
+//         onClose={onClose}
+//       >
+//         <ModalOverlay />
+//         <ModalContent>
+//           <ModalHeader>Update Your Profile</ModalHeader>
+//           <ModalCloseButton />
+//           <ModalBody pb={6}>
+//             <FormControl>
+//               <FormLabel>Avatar</FormLabel>
+//               <Input
+//                 ref={initialRef}
+//                 type="file"
+//                 name="avatar"
+//                 accept="*/*"
+//                 onChange={handleFileChange}
+//                 placeholder="update avatar"
+//               />
+//             </FormControl>
+//           </ModalBody>
+//           <ModalFooter>
+//             <Button onClick={handleSubmit} colorScheme="blue" mr={3}>
+//               Save
+//             </Button>
+//           </ModalFooter>
+//         </ModalContent>
+//       </Modal>
+//     </div>
+//   );
+// }
+
+// export default UpdateAvtar;
+
 
 import {
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    useDisclosure,
-  } from "@chakra-ui/react";
-  import React, { useRef, useState } from "react";
-  import { useDispatch, useSelector } from "react-redux";
-  import { Form } from "react-router-dom";
-  import { editUser, getUser } from "../redux/action";
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { editAvatar, getUser } from "../redux/action";
 
 function UpdateAvtar() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const initialRef = useRef(null);
-    const finalRef = useRef(null);
-    const userDataObj = JSON.parse(localStorage.getItem("userdata"));
-    const userD=useSelector((state)=>state.user.user)
-    const [form, setForm] = useState({
-      avatar: userD.avatar,
-    });
-    
-    const { userid } = userDataObj;
-    const dispatch = useDispatch();
-    
-    const handlechange = (event) => {
-      const file = event.target.files?.[0];
-      if (!file) {
-        return;
-      }
-      const formData = new FormData(); // Corrected FormData constructor
-      formData.append("image", file);
-    
-      // Update the form state with the new formData
-      setForm({
-        ...form,
-        image: formData, // Assuming you want to store the FormData in the state
-      });
-    };
-    
-      function handleSubmit(e) {
-        e.preventDefault()
-        dispatch(editUser(form,userDataObj.userid)).then(()=>{
-          dispatch(getUser(userid))
-        })
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = useRef(null);
+  const [avatarFile, setAvatarFile] = useState(null);
+  const userDataObj = JSON.parse(localStorage.getItem("userdata"));
+  const { userid } = userDataObj;
+  const dispatch = useDispatch();
+
+  const handleFileChange = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+    setAvatarFile(file);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if avatarFile is null
+    if (!avatarFile) {
+      console.error("No file selected");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", avatarFile);
+    console.log(formData)
+
+    dispatch(editAvatar(formData, userid))
+      .then(() => {
+        dispatch(getUser(userid));
         onClose();
-      }
+      })
+      .catch((error) => {
+        console.error("Error updating avatar:", error);
+        // Handle error appropriately (e.g., show error message)
+      });
+  };
 
   return (
     <div>
       <Button onClick={onOpen}>Update Avatar</Button>
-      <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Update Your Profile</ModalHeader>
@@ -74,14 +156,12 @@ function UpdateAvtar() {
                 ref={initialRef}
                 type="file"
                 name="avatar"
-                value={form.avatar}
-                onChange={handlechange}
+                accept="*/*"
+                onChange={handleFileChange}
                 placeholder="update avatar"
               />
             </FormControl>
-
           </ModalBody>
-
           <ModalFooter>
             <Button onClick={handleSubmit} colorScheme="blue" mr={3}>
               Save
@@ -90,7 +170,8 @@ function UpdateAvtar() {
         </ModalContent>
       </Modal>
     </div>
-  )
+  );
 }
 
-export default UpdateAvtar
+export default UpdateAvtar;
+

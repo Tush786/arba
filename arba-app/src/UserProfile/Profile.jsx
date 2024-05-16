@@ -28,8 +28,8 @@ function Profile() {
   const finalRef = useRef(null);
    const dispatch=useDispatch()
   const userDataObj = JSON.parse(localStorage.getItem("userdata"));
-  const {userid}=userDataObj
-  console.log(userid)
+  const {userid,avatar}=userDataObj
+  // console.log(avatar)
 
   const userD=useSelector((state)=>state.user.user)
   console.log(userD)
@@ -42,16 +42,20 @@ function Profile() {
   },[])
 
   return (
-    <div className="h-screen mt-8 w-[60%]  m-auto ">
-      <h1 className="text-[36px] text-left font-[800]">Profile Page :</h1>
+    <div className="h-screen flex justify-center items-center flex-col lg:w-[60%]  md:w-[80%] sm:w-[100%]  m-auto ">
+      <h1 className="text-[36px] lg:text-left font-[800] sm:text-center">Profile Page :</h1>
 
       <div className="flex border-b-2 border-[#eee5e5]  flex-col justify-center items-center bottom-2">
         <div>
-          <img
-            src="https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp"
+       
+            <img
+            src={avatar}
             width={400}
             alt="profile"
           />
+          
+        
+         
         </div>
 
         <div>
@@ -107,7 +111,7 @@ function Profile() {
         </div>
       </div>
 
-      <div className="flex w-[50%] m-auto my-4 justify-between  items-center ">
+      <div className="flex lg:w-[50%] sm:w-[100%] m-auto my-4 sm:justify-center lg:justify-between md:justify-between gap-2 items-center ">
         <TandC />
 
         <div>

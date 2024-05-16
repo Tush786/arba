@@ -14,6 +14,7 @@ import {
   ModalFooter,
   Image,
   Spinner,
+  Select,
 } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
@@ -39,6 +40,7 @@ function Productupdates() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const products = useSelector((state) => state.user.products);
   const dispatch = useDispatch();
+  const [sort,setSort]=useState("");
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -53,16 +55,16 @@ function Productupdates() {
     setProduct({ ...product, [e.target.name]: e.target.value });
   }
 
-  function HandleSubmit(e) {
+  function HandleSubmit(e,sort) {
     e.preventDefault();
     if (edit) {
       dispatch(editproduct(product, id)).then(() => {
-        dispatch(getproducts());
+        dispatch(getproducts(sort));
       });
       setEdit(false);
     } else {
       dispatch(Addproduct(product)).then(() => {
-        dispatch(getproducts());
+        dispatch(getproducts(sort));
       });
     }
 
@@ -89,10 +91,10 @@ function Productupdates() {
   }
 
   useEffect(() => {
-    dispatch(getproducts())
+    dispatch(getproducts(sort))
       .then(() => setLoading(false)) // Set loading to false after data is fetched
       .catch(() => setLoading(false)); // Set loading to false if there's an error
-  }, [dispatch]);
+  }, [dispatch,sort]);
 
   if (loading) {
     return (
@@ -101,11 +103,14 @@ function Productupdates() {
       </div>
     );
   }
+  console.log(sort)
+
+
 
   return (
     <div className="flex flex-col gap-3">
       {/* <Text textAlign='left' >Categories</Text> */}
-      <div className="flex justify-start">
+      <div className="flex justify-start items-center gap-4">
         <Button
           size="md"
           height="48px"
@@ -117,6 +122,13 @@ function Productupdates() {
         >
           ADD PRODUCT
         </Button>
+
+<div className="w-[20%] h-10 bg-[#edf2f7] rounded-sm">
+        <Select className="rounded-sm" placeholder='Filter' onChange={(e)=>{setSort(e.target.value)}}>
+  <option value='desc' className="py-4">Price High to Low</option>
+  <option value='asc'>Price Low to High</option>
+</Select>
+</div>
       </div>
       <div className="border border-gray-200 rounded-md p-4">
         <table className="w-full border-collapse border border-gray-200">

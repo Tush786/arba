@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { LoginUser, addUser } from "../redux/action";
+import { LoginUser, addUser, getUser } from "../redux/action";
 import {
   Button,
   Input,
@@ -30,9 +30,9 @@ function Login() {
   // const token="guririnrnrgnoiuy8"
   // console.log(token);
   const toast = useToast();
+  const userDataObj = JSON.parse(localStorage.getItem("userdata"));
 
-  // const userdata=useSelector((state)=>state.user.user)
-  // console.log(userdata)
+  const { userid } = userDataObj;
 
   const [user, setUser] = useState({
     email: "",
@@ -69,7 +69,9 @@ function Login() {
       return;
     }
 
-    dispatch(LoginUser(user));
+    dispatch(LoginUser(user)).then(()=>{
+      dispatch(getUser(userid))
+    })
 
     setUser({
       email: "",
@@ -78,6 +80,14 @@ function Login() {
 
     Navigate("/");
   };
+
+ useEffect(() => {
+    // Check if token exists
+    if (token) {
+      // Reload the page
+      window.location.reload();
+    }
+  }, [token]);
   // console.log(user);
   // const [userj, setUserj] = useState();
 

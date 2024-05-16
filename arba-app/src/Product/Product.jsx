@@ -10,6 +10,7 @@ function Product() {
   const [loading, setLoading] = useState(true);
   const [isAddingToCart, setIsAddingToCart] = useState(false); // New state for add to cart loading
   const products = useSelector((state) => state.user.products) || [];
+  const carts = useSelector((state) => state.user.carts);
   const dispatch = useDispatch();
   const toast = useToast();
   const [iD,setID]=useState("")
@@ -23,36 +24,39 @@ function Product() {
   const handleAddToCart = (el) => {
     setIsAddingToCart(true); // Set loading state to true when adding to cart
     setQuantity(quantity + 1);
-    // setID(el._id)
-    const cart = {
-      product: el,
-      quantity: quantity,
-    };
 
-    dispatch(addtoCart(cart))
-      .then(() => {
-        dispatch(getcart());
-        toast({
-          title: 'Product Added Successfully',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        });
-      })
-      .catch((error) => {
-        console.error('Error adding to cart:', error);
-        toast({
-          title: 'Failed to Add Product',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        });
-      })
-      .finally(() => {
-        setIsAddingToCart(false); // Reset loading state when action completes
-        setQuantity(1); // Reset quantity
-      });
-  };
+   
+        const cart = {
+            product: el,
+            quantity: quantity,
+        };
+
+        dispatch(addtoCart(cart))
+            .then(() => {
+                dispatch(getcart());
+                toast({
+                    title: 'Product Added Successfully',
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            })
+            .catch((error) => {
+                console.error('Error adding to cart:', error);
+                toast({
+                    title: 'Failed to Add Product',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            })
+            .finally(() => {
+                setIsAddingToCart(false); // Reset loading state when action completes
+                setQuantity(1); // Reset quantity
+            });
+    
+};
+
 
   if (loading) {
     return (

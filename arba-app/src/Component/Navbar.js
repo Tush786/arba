@@ -75,6 +75,7 @@ export default function Navbar() {
     }, 3000);
     // console.log("LoOOOut")
     localStorage.setItem("Token", "");
+    window.location.reload();
   };
 
   function handleRoute() {
@@ -125,9 +126,10 @@ export default function Navbar() {
         fontFamily="monospace"
         borderWidth="1px"
         boxShadow="md"
-        className="md:mb-[10px] sticky top-0 z-30"
+       className="sticky top-0 z-30"
+       
       >
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}  className="md:mb-[10px]  sticky top-0 z-30">
           <IconButton
             size={"md"}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}

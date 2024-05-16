@@ -33,22 +33,24 @@ const YourComponent = () => {
   ];
 
   return (
-    <Carousel
-        autoPlay
-        infiniteLoop
-        centerMode
-        showThumbs={false}
-        showStatus={false}
-      >
-        {images.map((e, index) => (
-          <img
-            src={e.src}
-            alt={e.alt}
-            className="max-h-[400px] mx-24"
-            key={index}
-          />
-        ))}
-      </Carousel>
+ <Carousel
+  autoPlay
+  infiniteLoop
+  centerMode
+  showThumbs={false}
+  showStatus={false}
+  className="mobile:carousel-height-desktop:carousel-height"
+>
+  {images.map((e, index) => (
+    <img
+      src={e.src}
+      alt={e.alt}
+      className="max-h-[400px] mx-24 mobile:max-h-[600px]"
+      key={index}
+    />
+  ))}
+</Carousel>
+
   );
 };
 

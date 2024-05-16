@@ -8,18 +8,18 @@ import { BiHeart } from "react-icons/bi";
 
 function CartsProduct(elem) {
   console.log(elem);
-  const { product, quantity} = elem;
+  const { product, quantity } = elem;
   const [loading, setLoading] = useState(false);
   const [quantit, setQuantit] = useState(quantity);
   const { title, description, price, _id, image } = product;
   const [cartProductId, setCartProductId] = useState("");
   console.log(product, quantity);
   const dispatch = useDispatch();
-  console.log(elem._id)
+  console.log(elem._id);
 
   const carts = useSelector((state) => state.user.carts);
   console.log(carts.orderItems);
-  const [cart,setCart]=useState({})
+  const [cart, setCart] = useState({});
 
   const removeFromCart = (elem) => {
     const cart = {
@@ -27,36 +27,32 @@ function CartsProduct(elem) {
       quantity: quantity - 1,
       id: elem._id,
     };
-    setCart(cart)
-    console.log(cart.quantity)
-   
-    
+    setCart(cart);
+    console.log(cart.quantity);
   };
 
-  useEffect(()=>{
-    if(cart.quantity<=0){
-      dispatch(removecart(elem._id)).then(()=>{
-       dispatch(getcart())
-      })
-      console.log(elem._id)
-   }
-   else{
-     dispatch(addtoCart(cart)).then(()=>{
-       dispatch(getcart());
-     })
-   }
-  },[cart])
+  useEffect(() => {
+    if (cart.quantity <= 0) {
+      dispatch(removecart(elem._id)).then(() => {
+        dispatch(getcart());
+      });
+      console.log(elem._id);
+    } else {
+      dispatch(addtoCart(cart)).then(() => {
+        dispatch(getcart());
+      });
+    }
+  }, [cart]);
 
   function handleAddToCart() {
     const cart = {
       product: product,
       quantity: quantity + 1,
     };
-    
-    dispatch(addtoCart(cart)).then(()=>{
+
+    dispatch(addtoCart(cart)).then(() => {
       dispatch(getcart());
-    })
-    
+    });
   }
 
   return (
@@ -107,27 +103,15 @@ function CartsProduct(elem) {
                   justifyContent: "center",
                 }}
               >
-                <button>
-                  <span
-                    onClick={() => removeFromCart(_id)}
-                    style={{
-                      paddingRight: "50px",
-                      // color: isHovered ? "white" : "black",
-                    }}
-                  >
+                <div className="w-full flex flex-row justify-center items-center gap-4">
+                  <Button onClick={() => removeFromCart(_id)} style={{}}>
                     -
-                  </span>
+                  </Button>
                   {quantity}
-                  <span
-                    onClick={() => handleAddToCart(elem)}
-                    style={{
-                      paddingLeft: "50px",
-                      // color: isHovered ? "white" : "black",
-                    }}
-                  >
+                  <Button onClick={() => handleAddToCart(elem)} style={{}}>
                     +
-                  </span>
-                </button>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

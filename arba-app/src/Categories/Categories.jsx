@@ -6,9 +6,9 @@ import Productupdates from "./Productupdates";
 function Categories() {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   return (
-    <div className="sm:w-[80%] w-[100%] m-auto mt-4">
+    <div className="lg:w-[80%] sm:w-[98%] md:w-[98%]  m-auto mt-4 ">
       <Tabs className="" isFitted variant="enclosed">
-        <TabList mb="1em">
+        <TabList mb="1em" className="md:w-[96%] lg:w-[97%] sm:w-[98%] m-auto" >
           <Tab
           bg='blue.100'
             _selected={{ color: "blue.500", bg: "green.100" }} // Styling for selected tab
@@ -26,7 +26,7 @@ function Categories() {
             Products
           </Tab>
         </TabList>
-        <TabPanels>
+        <TabPanels >
           <TabPanel>
             <CategoriesUpdate />
           </TabPanel>

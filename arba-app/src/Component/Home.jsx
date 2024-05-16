@@ -72,6 +72,7 @@ function Home() {
         ) : (
           <div className="grid lg:grid-cols-4 grid-cols-1 md:grid-cols-2 sm:gap-10 gap-10 ">
             {products.slice(0, 8).map((el, ind) => (
+              
               <Productcard key={ind} {...el} />
             ))}
           </div>

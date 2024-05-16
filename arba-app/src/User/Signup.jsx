@@ -362,8 +362,7 @@ function Signup({ onClose, onOpen }) {
     email: "",
     password: "",
     cpassword: "",
-    avatar:
-      "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp",
+    avatar:"https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp"
   });
 
   // console.log(user)
@@ -380,16 +379,25 @@ function Signup({ onClose, onOpen }) {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    const { userName, fullName, email, password, cpassword, file } = user;
+    const { userName, fullName, email, password, cpassword,avatar} = user;
 
-    // if (!file) {
-    //   return toast({
-    //     title: 'Please select a file',
-    //     status: 'error',
-    //     duration: 3000,
-    //     isClosable: true,
-    //   });
-    // }
+    if (userName === "") {
+      return toast({
+        title: "Enter User Name",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+    if (fullName=== "") {
+      return toast({
+        title: "Enter full name",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
 
     if (!email.includes("@") || !email.includes(".com") || email.length < 12) {
       return toast({
@@ -418,15 +426,6 @@ function Signup({ onClose, onOpen }) {
       });
     }
 
-    // const formData = new FormData();
-    // formData.append('userName', userName);
-    // formData.append('fullName', fullName);
-    // formData.append('email', email);
-    // formData.append('password', password);
-    // formData.append('cpassword', cpassword);
-    // formData.append('file', file);
-
-    // Dispatch action to add user
     dispatch(addUser(user));
 
     // Clear form fields after submission
@@ -436,7 +435,7 @@ function Signup({ onClose, onOpen }) {
       email: "",
       password: "",
       cpassword: "",
-      avatar: "",
+      avatar:""
     });
   };
 

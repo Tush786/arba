@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Text, useToast } from '@chakra-ui/react';
 import { addtoCart, getcart } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiHeart } from 'react-icons/bi';
 
-function Productcard(product ) {
+function Productcard(product) {
   const { title, price, image, _id } = product;
   const [quantity, setQuantity] = useState(1);
-  const [isloading, setIsloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const carts = useSelector((state) => state.user.carts);
   const dispatch = useDispatch();
   const toast = useToast();
+  const [qty, setQty] = useState(0);
+  const qtys=0;
+  // console.log(carts[0].quantity)
+
+  useEffect(() => {
+    console.log(carts)
+    if (_id && carts && carts.length > 0) {
+      const arr = carts.find(el => el._id === _id);
+      console.log(arr)
+      if (arr) {
+        setQty(arr.quantity);
+      } else {
+        setQty(0); // Reset qty if no matching item is found
+      }
+    }
+  }, [carts, _id]);
+  
+  console.log(qty)
 
   const handleAddToCart = () => {
-    setIsloading(true);
+    setIsLoading(true);
     setQuantity(quantity + 1);
 
     const cart = {
@@ -41,7 +59,7 @@ function Productcard(product ) {
         });
       })
       .finally(() => {
-        setIsloading(false); // Reset loading state regardless of success or failure
+        setIsLoading(false); // Reset loading state regardless of success or failure
       });
   };
 
@@ -61,16 +79,22 @@ function Productcard(product ) {
         style={{ boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.11)' }}
       >
         <div className="text-left flex flex-col gap-1">
-        <Text className="text-[20px] font-[600] text-[rgb(111,112,112)]">
-  {title.length > 20 ? `${title.substring(0, 20)}...` : title}
-</Text>
+          <Text className="text-[20px] font-[600] text-[rgb(111,112,112)]">
+            {title.length > 20 ? `${title.substring(0, 20)}...` : title}
+          </Text>
           <Text className="text-[20px] font-[600] text-[rgb(111,112,112)]"> ₹ {price}</Text>
         </div>
 
         <div className="w-[100%] bg-[rgb(0,171,197)] py-2 text-[white]">
-          <Button isLoading={isloading} colorScheme="blue" onClick={handleAddToCart}>
-            Add to Cart
-          </Button>
+          {qtys== 0 ? ( // If quantity is 0, show Add to Cart button
+            <Button isLoading={isLoading} colorScheme="blue" onClick={handleAddToCart}>
+              Add to Cart
+            </Button>
+          ) : ( // If quantity is not 0, show the quantity
+            <div className='w-full flex flex-row justify-center items-center gap-4'>
+              <Button className='px-2' >-</Button><span>{qty}</span><Button>+</Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
