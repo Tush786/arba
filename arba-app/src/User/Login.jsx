@@ -173,6 +173,9 @@ function Login() {
             <span>Remember Me</span>
           </label>
           <a
+          onClick={()=>{
+            Navigate('/forgetpassword')
+          }}
             className="text-blue-600 hover:text-blue-700 hover:underline hover:underline-offset-4"
             href="#"
           >
