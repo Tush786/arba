@@ -57,36 +57,29 @@ function Productcard(product) {
       });
   };
 
-  const handleRemoveFromCart = () => {
-    if (qty > 0) {
-      setIsLoading(true);
-      const updatedQuantity = quantity - 1; // Decrement the quantity
-      setQuantity(updatedQuantity); // Update the local state immediately
+  // const [cart, setCart] = useState({});
+  // const removeFromCart = () => {
+  //   const cart = {
+  //     product,
+  //     quantity: quantity - 1,
+  //     id: _id,
+  //   };
+  //   setCart(cart);
+  //   console.log(cart.quantity);
+  // };
 
-      dispatch(removecart(_id))
-        .then(() => {
-          dispatch(getcart());
-          toast({
-            title: 'Product Removed Successfully',
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-          });
-        })
-        .catch((error) => {
-          console.error('Error removing from cart:', error);
-          toast({
-            title: 'Failed to Remove Product',
-            status: 'error',
-            duration: 3000,
-            isClosable: true,
-          });
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  };
+  // useEffect(() => {
+  //   if (cart.quantity <= 0) {
+  //     dispatch(removecart(._id)).then(() => {
+  //       dispatch(getcart());
+  //     });
+  //     console.log(._id);
+  //   } else {
+  //     dispatch(addtoCart(cart)).then(() => {
+  //       dispatch(getcart());
+  //     });
+  //   }
+  // }, [cart]);
 
   return (
     <div className="">
@@ -117,7 +110,7 @@ function Productcard(product) {
             </Button>
           ) : (
             <div className='w-full flex flex-row justify-center items-center gap-4'>
-              <Button className='px-2' onClick={handleRemoveFromCart}>-</Button><span>{quantity}</span><Button onClick={handleAddToCart}>+</Button>
+              <Button className='px-2' >-</Button><span>{quantity}</span><Button onClick={handleAddToCart}>+</Button>
             </div>
           )}
         </div>
