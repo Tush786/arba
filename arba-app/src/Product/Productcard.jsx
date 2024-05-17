@@ -11,26 +11,27 @@ function Productcard(product) {
   const dispatch = useDispatch();
   const toast = useToast();
   const [qty, setQty] = useState(0);
-  const [quantity, setQuantity] = useState(0); // Initialize quantity to 0 initially
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     if (_id && carts && carts.length > 0) {
       const arr = carts.find(el => el.product._id === _id);
       if (arr) {
         setQty(arr.quantity);
-        setQuantity(arr.quantity); // Update quantity when qty changes
+        setQuantity(arr.quantity);
       }
     }
-  }, [carts, _id, setQty]);
+  }, [carts, _id]);
+
 
   const handleAddToCart = () => {
     setIsLoading(true);
-    const updatedQuantity = quantity + 1; // Increment the quantity
-    setQuantity(updatedQuantity); // Update the local state immediately
+    const updatedQuantity = quantity + 1;
+    setQuantity(updatedQuantity);
 
     const cart = {
       product,
-      quantity: updatedQuantity, // Pass the updated quantity to the add to cart action
+      quantity: updatedQuantity,
     };
 
     dispatch(addtoCart(cart))
@@ -57,29 +58,51 @@ function Productcard(product) {
       });
   };
 
-  // const [cart, setCart] = useState({});
-  // const removeFromCart = () => {
-  //   const cart = {
-  //     product,
-  //     quantity: quantity - 1,
-  //     id: _id,
-  //   };
-  //   setCart(cart);
-  //   console.log(cart.quantity);
-  // };
+  
+  const removeFromCart = (_id) => {
+    if (_id && carts && carts.length > 0) {
+      const arr = carts.find(el => el.product._id === _id);
+      if (arr && arr.quantity > 0) {
+        const updatedQuantity = arr.quantity - 1;
+        setQty(updatedQuantity);
+        setQuantity(updatedQuantity);
 
-  // useEffect(() => {
-  //   if (cart.quantity <= 0) {
-  //     dispatch(removecart(._id)).then(() => {
-  //       dispatch(getcart());
-  //     });
-  //     console.log(._id);
-  //   } else {
-  //     dispatch(addtoCart(cart)).then(() => {
-  //       dispatch(getcart());
-  //     });
-  //   }
-  // }, [cart]);
+        if (updatedQuantity <= 0) {
+          dispatch(removecart(arr._id))
+            .then(() => {
+              dispatch(getcart());
+              toast({
+                title: 'Product Removed Successfully',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+              });
+            })
+            .catch((error) => {
+              console.error('Error removing from cart:', error);
+              toast({
+                title: 'Failed to Remove Product',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+              });
+            });
+        } else {
+          const cart = {
+            product,
+            quantity: updatedQuantity,
+          };
+          dispatch(addtoCart(cart))
+            .then(() => {
+              dispatch(getcart());
+            })
+            .catch((error) => {
+              console.error('Error updating cart:', error);
+            });
+        }
+      }
+    }
+  };
 
   return (
     <div className="">
@@ -88,12 +111,12 @@ function Productcard(product) {
       </div>
       <div
         className="w-full m-auto h-[250px] flex justify-center items-center rounded-sm"
-        style={{ boxShadow: ' rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }}
+        style={{ boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }}
       >
         <img className="h-[100%] w-[100%] rounded-sm" src={image} alt="title" />
       </div>
       <div
-        className="relative  bottom-10  bg-white flex flex-col gap-2 text-[black]  p-2 z-20 w-[75%] m-auto "
+        className="relative bottom-10 bg-white flex flex-col gap-2 text-[black] p-2 z-20 w-[75%] m-auto"
         style={{ boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.11)' }}
       >
         <div className="text-left flex flex-col gap-1">
@@ -109,8 +132,10 @@ function Productcard(product) {
               Add to Cart
             </Button>
           ) : (
-            <div className='w-full flex flex-row justify-center items-center gap-4'>
-              <Button className='px-2' >-</Button><span>{quantity}</span><Button onClick={handleAddToCart}>+</Button>
+            <div className="w-full flex flex-row justify-center items-center gap-4">
+              <Button className="px-2" onClick={() => removeFromCart(_id)}>-</Button>
+              <span>{quantity}</span>
+              <Button onClick={handleAddToCart}>+</Button>
             </div>
           )}
         </div>
