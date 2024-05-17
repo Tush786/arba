@@ -32,7 +32,7 @@ function Login() {
   const toast = useToast();
   const userDataObj = JSON.parse(localStorage.getItem("userdata"));
 
-  const { userid } = userDataObj;
+  // const { userid } = userDataObj;
 
   const [user, setUser] = useState({
     email: "",
@@ -70,7 +70,7 @@ function Login() {
     }
 
     dispatch(LoginUser(user)).then(()=>{
-      dispatch(getUser(userid))
+      dispatch(getUser(""))
     })
 
     setUser({
@@ -203,3 +203,29 @@ function Login() {
 }
 
 export default Login;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react'
+
+// function Login() {
+//   return (
+//     <div>
+//       <h1>Hello</h1>
+//     </div>
+//   )
+// }
+
+// export default Login
+
