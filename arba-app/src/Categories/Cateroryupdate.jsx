@@ -30,30 +30,44 @@ function CategoriesUpdate() {
   const [category, setCategory] = useState({
     name: "",
     slug: "",
-    image: "",
+    image: null,
   });
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
-
+  const userDataObj = JSON.parse(localStorage.getItem("userdata"));
+  const { userid } = userDataObj;
   const categorydata = useSelector((state) => state.user.category);
   // console.log(categorydata);
   const dispatch = useDispatch();
 
   function handlechange(e) {
-    setCategory({ ...category, [e.target.name]: e.target.value });
+    if (e.target.name === "image") {
+      // For file input
+      setCategory({ ...category, image: e.target.files[0] });
+    } else {
+      // For other inputs
+      setCategory({ ...category, [e.target.name]: e.target.value });
+    }
   }
 
   function HandleSubmit(e) {
     e.preventDefault();
+  const {name,slug,image}=category
+
+    const formData = new FormData();
+    formData.append("Cimage", image);
+    formData.append("slug", slug);
+    formData.append("name", name);
+    formData.append("owner", userid);
 
     if (edit) {
-      dispatch(editcategory(category, id)).then(() => {
+      dispatch(editcategory(formData, id)).then(() => {
         dispatch(getcategory());
       });
       setEdit(false);
     } else {
-      dispatch(addcategory(category)).then(() => {
+      dispatch(addcategory(formData)).then(() => {
         dispatch(getcategory());
       });
     }
@@ -61,7 +75,7 @@ function CategoriesUpdate() {
     setCategory({
       name: "",
       slug: "",
-      image: "",
+      image:null,
     });
     onClose()
   }
@@ -162,16 +176,18 @@ function CategoriesUpdate() {
                         <ModalHeader>Edit Categories</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody pb={6}>
-                          <FormControl>
-                            <FormLabel>Image</FormLabel>
-                            <Input
-                              onChange={handlechange}
-                              ref={initialRef}
-                              placeholder="Enter Image url"
-                              name="image"
-                              value={category.image}
-                            />
-                          </FormControl>
+                        
+            <FormControl mt={4}>
+             <FormLabel>Image</FormLabel>
+            <Input
+                onChange={handlechange}
+                type="file"
+                name="image"
+                accept="*/*"
+                placeholder="Upload Image"
+                multiple={false}
+              />
+            </FormControl>
 
                           <FormControl mt={4}>
                             <FormLabel>name</FormLabel>

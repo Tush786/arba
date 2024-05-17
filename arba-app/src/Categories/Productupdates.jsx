@@ -33,7 +33,7 @@ function Productupdates() {
   const [product, setProduct] = useState({
     title: "",
     description: "",
-    image: "",
+    image: null,
     price: "",
   });
   const [loading, setLoading] = useState(true); // Loading state
@@ -41,6 +41,9 @@ function Productupdates() {
   const products = useSelector((state) => state.user.products);
   const dispatch = useDispatch();
   const [sort,setSort]=useState("");
+  const userDataObj = JSON.parse(localStorage.getItem("userdata"));
+  const { userid } = userDataObj;
+  
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -51,19 +54,40 @@ function Productupdates() {
     });
   }
 
-  function handlechange(e) {
-    setProduct({ ...product, [e.target.name]: e.target.value });
+  // function handlechange(e) {
+  //   setProduct({ ...product, [e.target.name]: e.target.value });
+  // }
+
+    function handlechange(e) {
+    if (e.target.name === "image") {
+      // For file input
+      setProduct({ ...product, image: e.target.files[0] });
+    } else {
+      // For other inputs
+      setProduct({ ...product, [e.target.name]: e.target.value });
+    }
   }
 
+
   function HandleSubmit(e,sort) {
+       const {image,title,description,price}=product
+
+       const formData = new FormData();
+    formData.append("image", image);
+    formData.append("description", description);
+    formData.append("title", title);
+    formData.append("price", price);
+    formData.append("owner", userid);
+
+
     e.preventDefault();
     if (edit) {
-      dispatch(editproduct(product, id)).then(() => {
+      dispatch(editproduct(formData, id)).then(() => {
         dispatch(getproducts(sort));
       });
       setEdit(false);
     } else {
-      dispatch(Addproduct(product)).then(() => {
+      dispatch(Addproduct(formData)).then(() => {
         dispatch(getproducts(sort));
       });
     }
@@ -72,7 +96,7 @@ function Productupdates() {
       title: "",
       description: "",
       image: "",
-      price: "",
+      price: null,
     });
     onClose();
   }
@@ -210,7 +234,7 @@ function Productupdates() {
               />
             </FormControl>
 
-            <FormControl mt={4}>
+            {/* <FormControl mt={4}>
               <FormLabel>Image</FormLabel>
               <Input
                 onChange={handlechange}
@@ -218,6 +242,18 @@ function Productupdates() {
                 placeholder="Enter Image"
                 name="image"
                 value={product.image}
+              />
+            </FormControl> */}
+
+            <FormControl mt={4}>
+             <FormLabel>Image</FormLabel>
+            <Input
+                onChange={handlechange}
+                type="file"
+                name="image"
+                accept="*/*"
+                placeholder="Upload Image"
+                multiple={false}
               />
             </FormControl>
 

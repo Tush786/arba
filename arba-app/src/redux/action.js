@@ -131,7 +131,7 @@ export const editUser = (user,id) => async (dispatch) => {
 export const editAvatar = (avatar,id) => async (dispatch) => {
   console.log(avatar,id)
   try {
-   const resp= await axios.patch(`http://localhost:7777/user/avatar/${id}`, avatar);
+   const resp= await axios.patch(`https://arba-backend-1-4267.onrender.com/user/avatar/${id}`, avatar);
     // console.log(resp)
     // dispatch({
     //   type: EDIT_USER,
