@@ -48,11 +48,22 @@ function Profile() {
       <div className="flex border-b-2 border-[#eee5e5]  flex-col justify-center items-center bottom-2">
         <div>
        
-            <img
+       {
+        avatar==true?(
+          <img
             src={avatar}
             width={400}
             alt="profile"
           />
+        ):(
+          <img
+            src="https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp"
+            width={400}
+            alt="profile"
+          />
+        )
+       }
+        
           
         
          
