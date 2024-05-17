@@ -5,6 +5,9 @@ A MERN application for basic tasks management.
 <h3>Email : tusharsapate34@gmail.com</h3>
 <h3>Pass : Tushar@123</h3>
 
+<h3>Note : Due to some conflict with Privious url i have updated new one <h3>
+<h2>Deployed URL</h2> https://arba-tau.vercel.app/
+
 <h1>Home Page</h1>
 <a href="https://ibb.co/pQ5ScSz"><img src="https://i.ibb.co/68LkzkP/LV-H.png" alt="LV-H" border="0"></a>
 
