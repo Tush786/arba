@@ -203,29 +203,3 @@ function Login() {
 }
 
 export default Login;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react'
-
-// function Login() {
-//   return (
-//     <div>
-//       <h1>Hello</h1>
-//     </div>
-//   )
-// }
-
-// export default Login
-

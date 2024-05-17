@@ -16,7 +16,7 @@ function ForgetPassword() {
             setMessage("");
             setError("");
 
-            const res = await axios.post(`http://localhost:7777/pass/forgotPassword`, { email });
+            const res = await axios.post(`https://arba-backend-1-4267.onrender.com/pass/forgotPassword`, { email });
 
             setMessage(res.data.message);
             console.log(res.data.message);
